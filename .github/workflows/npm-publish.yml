@@ -25,13 +25,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
           # registry-url: 'https://registry.npmjs.org'
-          scope: '@guidesmiths'
-      - run: npm login
+          # scope: '@guidesmiths'
       - run: npm ci
-      - run: npm publish
+      - run: npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
+      - run: npm publish --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_GUIDESMITHS }}
