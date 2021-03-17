@@ -1,10 +1,10 @@
 {
-  "name": "@guidesmiths/license-checker",
+  "name": "guidesmiths-license-checker",
   "version": "1.0.0",
   "description": "License checker for GuideSmiths projects",
   "main": "index.js",
   "bin": {
-    "license-checker": "./index.js"
+    "guidesmiths-license-checker": "./index.js"
   },
   "repository": {
     "type": "git",
