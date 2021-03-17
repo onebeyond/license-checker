@@ -28,8 +28,9 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 14
-          # registry-url: https://registry.npmjs.org/
+          registry-url: https://registry.npmjs.org/
+          scope: '@guidesmiths'
       - run: npm ci
       - run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_GUIDESMITHS}}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_GUIDESMITHS }}
