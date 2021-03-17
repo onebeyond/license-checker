@@ -1,0 +1,29 @@
+{
+  "name": "@guidesmiths/license-checker",
+  "version": "1.0.0",
+  "description": "License checker for GuideSmiths projects",
+  "main": "index.js",
+  "bin": {
+    "guidesmiths-license-checker": "./index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/guidesmiths/license-checker.git"
+  },
+  "keywords": [
+    "license"
+  ],
+  "author": "Jose Manuel Torralvo, Íñigo Marquínez Prado",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/guidesmiths/license-checker/issues"
+  },
+  "homepage": "https://gitlab.com/guidesmiths/license-checker#readme",
+  "dependencies": {
+    "license-checker": "^25.0.1",
+    "yargs": "^16.2.0"
+  }
+}
