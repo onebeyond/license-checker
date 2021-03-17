@@ -6,22 +6,28 @@
   "bin": {
     "guidesmiths-license-checker": "./index.js"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@gitlab.com/guidesmiths/license-checker.git"
+    "url": "git+https://github.com:guidesmiths/license-checker.git"
   },
   "keywords": [
     "license"
   ],
-  "author": "Jose Manuel Torralvo, Íñigo Marquínez Prado",
+  "contributors": [
+    {
+      "name" : "Jose Manuel Torralvo",
+      "email" : "jm.torralvo@guidemisths.com"
+    },
+    {
+      "name" : "Íñigo Marquínez Prado",
+      "email" : "inigo.marquinez@guidemisths.com"
+    }
+  ],
   "license": "ISC",
   "bugs": {
-    "url": "https://gitlab.com/guidesmiths/license-checker/issues"
+    "url": "https://github.com/guidesmiths/license-checker/issues"
   },
-  "homepage": "https://gitlab.com/guidesmiths/license-checker#readme",
+  "homepage": "https://github.com/guidesmiths/license-checker#readme",
   "dependencies": {
     "license-checker": "^25.0.1",
     "yargs": "^16.2.0"
