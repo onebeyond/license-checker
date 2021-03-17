@@ -4,7 +4,7 @@
   "description": "License checker for GuideSmiths projects",
   "main": "index.js",
   "bin": {
-    "guidesmiths-license-checker": "./index.js"
+    "license-checker": "./index.js"
   },
   "repository": {
     "type": "git",
@@ -15,12 +15,12 @@
   ],
   "contributors": [
     {
-      "name" : "Jose Manuel Torralvo",
-      "email" : "jm.torralvo@guidemisths.com"
+      "name": "Jose Manuel Torralvo",
+      "email": "jm.torralvo@guidemisths.com"
     },
     {
-      "name" : "Íñigo Marquínez Prado",
-      "email" : "inigo.marquinez@guidemisths.com"
+      "name": "Íñigo Marquínez Prado",
+      "email": "inigo.marquinez@guidemisths.com"
     }
   ],
   "license": "ISC",
