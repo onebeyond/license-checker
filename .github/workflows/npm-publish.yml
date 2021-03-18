@@ -30,10 +30,10 @@ jobs:
       with:
         node-version: '12.x'
         registry-url: 'https://registry.npmjs.org'
-    - run: npmrc guidesmiths
+    # - run: npmrc guidesmiths
     - run: npm ci
     - run: npm publish --access public
-    #   env:
-    #     NODE_AUTH_TOKEN: ${{ secrets.NPM_GUIDESMITHS }}
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_GUIDESMITHS }}
     # - run: npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN} && npm publish --ignore-scripts
 
