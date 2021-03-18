@@ -26,14 +26,15 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     # Setup .npmrc file to publish to npm
-    - uses: actions/setup-node@v2
+    - uses: actions/setup-node@v1
       with:
         node-version: '12.x'
         registry-url: 'https://registry.npmjs.org'
-    # - run: npmrc guidesmiths
     - run: npm ci
-    - run: npm publish --access public
+    - run: |
+        npm config set //registry.npmjs.org/:_authToken ${NPM_GUIDESMITHS}
+        npm publish --ignore-scripts --access public
       env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_GUIDESMITHS }}
+        NPM_GUIDESMITHS: ${{ secrets.NPM_GUIDESMITHS }}
     # - run: npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN} && npm publish --ignore-scripts
 
