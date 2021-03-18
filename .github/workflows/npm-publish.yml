@@ -1,9 +1,9 @@
-# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
+# This workflow will run tests using node and then publish a package to npm when a release is created
 # For more information see: https://help.github.com/actions/language-and-framework-guides/publishing-nodejs-packages
 
 name: Node.js Package
 
-on: 
+on:
   push:
     branches:
       - main
@@ -24,13 +24,24 @@ jobs:
 #    needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-          # registry-url: 'https://registry.npmjs.org'
-          # scope: '@guidesmiths'
-      - run: npm ci
-      - run: npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN} && npm publish --ignore-scripts
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_GUIDESMITHS }}
+    - uses: actions/checkout@v2
+    # Setup .npmrc file to publish to npm
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '12.x'
+        registry-url: 'https://registry.npmjs.org'
+        # scope: '@guidesmiths'
+    - run: npm ci
+    - run: npm publish
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_GUIDESMITHS }}
+    # - run: npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN} && npm publish --ignore-scripts
+    # - run: npm publish
+    #   env:
+    #     NODE_AUTH_TOKEN: ${{ secrets.NPM_GUIDESMITHS }}
+    # - run:
+    #     name: Authenticate with registry
+    #     command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/repo/.npmrc
+    # - run:
+    #     name: Publish package
+    #     command: npm publish
