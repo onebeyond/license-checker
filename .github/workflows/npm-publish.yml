@@ -32,9 +32,8 @@ jobs:
         registry-url: 'https://registry.npmjs.org'
     - run: npm ci
     - run: |
-        npm config set //registry.npmjs.org/:_authToken ${NPM_GUIDESMITHS}
         npm publish --ignore-scripts --access public
       env:
-        NPM_GUIDESMITHS: ${{ secrets.NPM_GUIDESMITHS }}
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_GUIDESMITHS }}
     # - run: npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN} && npm publish --ignore-scripts
 
