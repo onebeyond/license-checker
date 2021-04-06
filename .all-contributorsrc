@@ -1,0 +1,28 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "MarioQuiroga32",
+      "name": "Mario Quiroga",
+      "avatar_url": "https://avatars.githubusercontent.com/u/43605474?v=4",
+      "profile": "https://github.com/MarioQuiroga32",
+      "contributions": [
+        "code",
+        "doc",
+        "ideas",
+        "maintenance",
+        "review"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "license-checker",
+  "projectOwner": "guidesmiths",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
