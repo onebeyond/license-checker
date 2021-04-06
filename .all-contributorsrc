@@ -17,6 +17,24 @@
         "maintenance",
         "review"
       ]
+    },
+    {
+      "login": "MarioQuiroga32",
+      "name": "Mario Quiroga",
+      "avatar_url": "https://avatars.githubusercontent.com/u/43605474?v=4",
+      "profile": "https://github.com/MarioQuiroga32",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "inigomarquinez",
+      "name": "Íñigo Marquínez",
+      "avatar_url": "https://avatars.githubusercontent.com/u/25435858?v=4",
+      "profile": "https://github.com/inigomarquinez",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -24,5 +42,6 @@
   "projectOwner": "guidesmiths",
   "repoType": "github",
   "repoHost": "https://github.com",
-  "skipCi": true
+  "skipCi": true,
+  "commitConvention": "none"
 }
