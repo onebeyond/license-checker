@@ -21,8 +21,16 @@
     {
       "name": "Íñigo Marquínez Prado",
       "email": "inigo.marquinez@guidemisths.com"
+    },
+    {
+      "name": "Mario Quiroga",
+      "email": "mario.quiroga@guidemisths.com"
     }
   ],
+  "scripts": {
+    "contributors:add": "all-contributors add",
+    "contributors:generate": "all-contributors generate"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/guidesmiths/license-checker/issues"
@@ -31,5 +39,8 @@
   "dependencies": {
     "license-checker": "25.0.1",
     "yargs": "16.2.0"
+  },
+  "devDependencies": {
+    "all-contributors-cli": "^6.20.0"
   }
 }
