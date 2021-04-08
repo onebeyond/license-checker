@@ -22,7 +22,7 @@ npm install @guidesmiths/license-checker
 - Add a script to run the package
 
 ```
-npx license-checker --failOn license1,license2
+npx @guidesmiths/license-checker --failOn license1,license2
 ```
 
 - Use the script wherever you want (husky hook, in your CI/CD pipeline, ...)
