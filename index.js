@@ -36,19 +36,21 @@ const argv = yargs
     .alias('help', 'h')
     .argv;
 
-const cleanOutput = packages => Object.entries(packages).map(([key, value]) => {
-    const { path, licenseFile, ...rest } = value;
-    const validInfo = {
-      package_name: key,
-      ...rest,
-    };
 
-    return validInfo;
-  });
+const cleanOutput = packages => Object.entries(packages).map(([key, value]) => {
+  const { path, licenseFile, ...rest } = value;
+  const validInfo = {
+    package_name: key,
+    ...rest,
+  };
+
+  return validInfo;
+});
+
 
 const createLicenseReport = ({ report }) => {
-  const compiled = _.template(
-    '|   Library   |  Version  |  License |    Repository   |\n|---|---|---|---|\n<% _.forEach(report, function(elem) { %>| <%- elem.package_name.split("@")[0] %> | <%- elem.package_name.split("@")[1] %> | <%- elem.licenses %> | <%- elem.repository %> |\n <% }); %>');
+    const compiled = _.template(
+      '|   Library   |  Version  |  License |    Repository   |\n|---|---|---|---|\n<% _.forEach(report, elem => { const r = /(.*)@(.*)/.exec(elem.package_name); %>| <%- r[1] %> | <%- r[2] %> | <%- elem.licenses %> | <%- elem.repository %> |\n <% }); %>');
 
   const output = compiled({ 'report': report });
   fs.writeFileSync(
@@ -58,6 +60,7 @@ const createLicenseReport = ({ report }) => {
   });
   console.info(`${argv.outputFileName}.md created!`);
 };
+
 
 checker.init({
   start: __dirname,
@@ -99,7 +102,6 @@ checker.init({
 
     if (!parsedGenerateOutputOnArray.length || cleanedPackages.some(p => parsedGenerateOutputOnArray.includes(p.licenses))) {
       console.info('License check completed! No forbidden licenses packages found.');
-      console.log('cleanedPackages', cleanedPackages);
       createLicenseReport({ report: cleanedPackages });
     }
   }
