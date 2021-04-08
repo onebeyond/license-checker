@@ -4,6 +4,7 @@ const checker = require('license-checker');
 const yargs = require('yargs');
 var fs = require('fs');
 const { string } = require('yargs');
+const _ = require('lodash');
 
 const now = new Date().toISOString();
 
@@ -45,6 +46,19 @@ const cleanOutput = packages => Object.entries(packages).map(([key, value]) => {
     return validInfo;
   });
 
+const createLicenseReport = ({ report }) => {
+  const compiled = _.template(
+    '|   Library   |  Version  |  License |    Repository   |\n|---|---|---|---|\n<% _.forEach(report, function(elem) { %>| <%- elem.package_name.split("@")[0] %> | <%- elem.package_name.split("@")[1] %> | <%- elem.licenses %> | <%- elem.repository %> |\n <% }); %>');
+
+  const output = compiled({ 'report': report });
+  fs.writeFileSync(
+    `${argv.outputFileName}.md`,
+    output, error => {
+      if (error) throw error;
+  });
+  console.info(`${argv.outputFileName}.md created!`);
+};
+
 checker.init({
   start: __dirname,
 }, (err, packages) => {
@@ -85,14 +99,8 @@ checker.init({
 
     if (!parsedGenerateOutputOnArray.length || cleanedPackages.some(p => parsedGenerateOutputOnArray.includes(p.licenses))) {
       console.info('License check completed! No forbidden licenses packages found.');
-
-      fs.writeFileSync(
-        `${argv.outputFileName}.txt`,
-        JSON.stringify(cleanedPackages, null, "\t"), error => {
-          if (error) throw error;
-      });
-
-      console.info(`${argv.outputFileName}.txt created!`);
+      console.log('cleanedPackages', cleanedPackages);
+      createLicenseReport({ report: cleanedPackages });
     }
   }
 });

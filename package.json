@@ -38,6 +38,7 @@
   "homepage": "https://github.com/guidesmiths/license-checker#readme",
   "dependencies": {
     "license-checker": "25.0.1",
+    "lodash": "^4.17.21",
     "yargs": "16.2.0"
   },
   "devDependencies": {
