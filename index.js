@@ -23,23 +23,23 @@ checker.init({
     const invalidPackageList = packageList
       .filter(packageInfo => parsedFailOnArray.includes(packageInfo.licenses));
 
-    // Generate report with packages containing the licenses passed to `failOn`
-    if (invalidPackageList.length && !argv.disableErrorReport) {
-      writeReportFile(argv.errorReportFileName, invalidPackageList);
-    }
-
     // Stop execution if packages were found for the selected licenses
     if (invalidPackageList.length) {
-      const failingLicensesStats= invalidPackageList
+      const forbiddenLicenseStats = invalidPackageList
         .reduce((stats, { licenses }) => ({
           ...stats,
           [licenses]: !stats[licenses] ? 1 : stats[licenses] + 1,
         }), {});
 
       console.error(`Found ${invalidPackageList.length} packages with licenses defined by the --failOn flag:`);
-      Object.keys(failingLicensesStats).forEach(license => {
-        console.error(` > ${failingLicensesStats[license]} packages with license ${license}`);
-      })
+      Object.keys(forbiddenLicenseStats).forEach(license => {
+        console.error(` > ${forbiddenLicenseStats[license]} packages with license ${license}`);
+      });
+
+      // Generate report with packages containing the licenses passed to `failOn`
+      if (!argv.disableErrorReport) {
+        writeReportFile(argv.errorReportFileName, invalidPackageList);
+      }
 
       process.exit(1);
     }
