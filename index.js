@@ -27,18 +27,17 @@ checker.init({
       const parsedFailOn = argv.failOn.split(',');
       const parsedFailOnArray = parsedFailOn.map(p => p.trim());
 
-
       const failOnOutput = cleanedPackages.filter(packageInfo => parsedFailOnArray.includes(packageInfo.licenses));
 
       // Generate report
       if (failOnOutput.length && !argv.disableErrorReport) {
         fs.writeFileSync(
-          `${argv.errorReportFileName}.txt`,
+          `${argv.errorReportFileName}.json`,
           JSON.stringify(failOnOutput, null, "\t"), error => {
             if (error) throw error;
           });
 
-        console.info(`${argv.errorReportFileName}.txt created!`);
+        console.info(`${argv.errorReportFileName}.json created!`);
       }
 
       // Check if should exit
@@ -57,12 +56,12 @@ checker.init({
       console.info('License check completed! No forbidden licenses packages found.');
 
       fs.writeFileSync(
-        `${argv.outputFileName}.txt`,
+        `${argv.outputFileName}.json`,
         JSON.stringify(cleanedPackages, null, "\t"), error => {
           if (error) throw error;
         });
 
-      console.info(`${argv.outputFileName}.txt created!`);
+      console.info(`${argv.outputFileName}.json created!`);
     }
   }
 });
