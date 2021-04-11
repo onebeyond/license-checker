@@ -8,60 +8,58 @@ const argv = require('./src/args');
 const cleanOutput = packages => Object.entries(packages).map(([key, value]) => {
   const { path, licenseFile, ...rest } = value;
   const validInfo = {
-    package_name: key,
+    package: key,
     ...rest,
   };
 
   return validInfo;
 });
 
+const writeReportFile = (outputFileName, outputData = []) => {
+  fs.writeFileSync(
+    `${outputFileName}.json`,
+    JSON.stringify(outputData, null, '\t'), error => {
+      if (error) throw error;
+    });
+
+  console.info(`${outputFileName}.json created!`);
+};
+
 checker.init({
   start: __dirname,
 }, (err, packages) => {
   if (err) {
     console.error('license-checker error:', err);
-  } else {
-    const cleanedPackages = cleanOutput(packages);
+    process.exit(1);
+  }
 
-    if (argv.failOn) {
-      const parsedFailOn = argv.failOn.split(',');
-      const parsedFailOnArray = parsedFailOn.map(p => p.trim());
+  const cleanedPackages = cleanOutput(packages);
 
-      const failOnOutput = cleanedPackages.filter(packageInfo => parsedFailOnArray.includes(packageInfo.licenses));
+  if (argv.failOn) {
+    const parsedFailOn = argv.failOn.split(',');
+    const parsedFailOnArray = parsedFailOn.map(p => p.trim());
 
-      // Generate report
-      if (failOnOutput.length && !argv.disableErrorReport) {
-        fs.writeFileSync(
-          `${argv.errorReportFileName}.json`,
-          JSON.stringify(failOnOutput, null, "\t"), error => {
-            if (error) throw error;
-          });
+    const failOnOutput = cleanedPackages.filter(packageInfo => parsedFailOnArray.includes(packageInfo.licenses));
 
-        console.info(`${argv.errorReportFileName}.json created!`);
-      }
-
-      // Check if should exit
-      if (failOnOutput.length) {
-        const failingLicensesArray = failOnOutput.map(p => p.licenses);
-        const failingLicensesSet = new Set(failingLicensesArray);
-        console.error('Found license defined by the --failOn flag: "' + Array.from(failingLicensesSet).join(', ') + '". Exiting.');
-        process.exit(1);
-      }
+    // Generate report
+    if (failOnOutput.length && !argv.disableErrorReport) {
+      writeReportFile(argv.errorReportFileName, failOnOutput);
     }
 
-    const parsedGenerateOutputOn = argv.generateOutputOn ? argv.generateOutputOn.split(',') : [];
-    const parsedGenerateOutputOnArray = parsedGenerateOutputOn.map(p => p.trim());
-
-    if (!parsedGenerateOutputOnArray.length || cleanedPackages.some(p => parsedGenerateOutputOnArray.includes(p.licenses))) {
-      console.info('License check completed! No forbidden licenses packages found.');
-
-      fs.writeFileSync(
-        `${argv.outputFileName}.json`,
-        JSON.stringify(cleanedPackages, null, "\t"), error => {
-          if (error) throw error;
-        });
-
-      console.info(`${argv.outputFileName}.json created!`);
+    // Check if should exit
+    if (failOnOutput.length) {
+      const failingLicensesArray = failOnOutput.map(p => p.licenses);
+      const failingLicensesSet = new Set(failingLicensesArray);
+      console.error('Found license defined by the --failOn flag: "' + Array.from(failingLicensesSet).join(', ') + '". Exiting.');
+      process.exit(1);
     }
+  }
+
+  const parsedGenerateOutputOn = argv.generateOutputOn ? argv.generateOutputOn.split(',') : [];
+  const parsedGenerateOutputOnArray = parsedGenerateOutputOn.map(p => p.trim());
+
+  if (!parsedGenerateOutputOnArray.length || cleanedPackages.some(p => parsedGenerateOutputOnArray.includes(p.licenses))) {
+    console.info('License check completed! No forbidden licenses packages found.');
+    writeReportFile(argv.outputFileName, cleanedPackages);
   }
 });
