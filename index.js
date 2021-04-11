@@ -1,29 +1,9 @@
 #!/usr/bin/env node
 
 const checker = require('license-checker');
-const fs = require('fs');
 
 const argv = require('./src/args');
-
-const cleanOutput = packages => Object.entries(packages).map(([key, value]) => {
-  const { path, licenseFile, ...rest } = value;
-  const validInfo = {
-    package: key,
-    ...rest,
-  };
-
-  return validInfo;
-});
-
-const writeReportFile = (outputFileName, outputData = []) => {
-  fs.writeFileSync(
-    `${outputFileName}.json`,
-    JSON.stringify(outputData, null, '\t'), error => {
-      if (error) throw error;
-    });
-
-  console.info(`${outputFileName}.json created!`);
-};
+const { cleanOutput, writeReportFile } = require('./src/utils');
 
 checker.init({
   start: __dirname,
