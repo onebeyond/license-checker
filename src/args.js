@@ -1,6 +1,11 @@
 const yargs = require('yargs');
 
-const now = new Date().toISOString();
+let now = new Date().toISOString();
+
+// Colon in filenames is not supported in Windows, so we must replace them
+if (process.platform === 'win32') {
+  now = now.replace(/:/gi, '.');
+}
 
 /**
  *  Definition of all of the different arguments that can be passed to the
