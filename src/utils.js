@@ -31,12 +31,12 @@ const getPackageInfoList = packages => Object.entries(packages)
  */
 const writeReportFile = (outputFileName, outputData = []) => {
   fs.writeFileSync(
-    `${outputFileName}.json`,
+    `${outputFileName}.txt`,
     JSON.stringify(outputData, null, '\t'), error => {
       if (error) throw error;
     });
 
-  console.info(`${outputFileName}.json created!`);
+  console.info(`${outputFileName}.txt created!`);
 };
 
 module.exports = {
