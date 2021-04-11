@@ -1,10 +1,10 @@
 const yargs = require('yargs');
 
-let now = new Date().toISOString();
+let timestamp = new Date().toISOString();
 
 // Colon in filenames is not supported in Windows, so we must replace them
 if (process.platform === 'win32') {
-  now = now.replace(/:/gi, '.');
+  timestamp = timestamp.replace(/:/gi, '.');
 }
 
 /**
@@ -23,12 +23,12 @@ module.exports = yargs
   .option('outputFileName', {
     description: 'name of the output file generated',
     type: 'string',
-    default: `licence-report-${now}`
+    default: `licence-report-${timestamp}`
   })
   .option('errorReportFileName', {
     description: 'name of the file generated when a licence in the failOn option is found',
     type: 'string',
-    default: `license-error-${now}`
+    default: `license-error-${timestamp}`
   })
   .option('disableErrorReport', {
     description: 'flag to disable the error report file generation',
