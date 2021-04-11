@@ -13,24 +13,34 @@ checker.init({
     process.exit(1);
   }
 
-  const cleanedPackages = cleanOutput(packages);
+  // Generate an array of package info objects
+  const packageList = cleanOutput(packages);
 
   if (argv.failOn) {
     const parsedFailOn = argv.failOn.split(',');
     const parsedFailOnArray = parsedFailOn.map(p => p.trim());
 
-    const failOnOutput = cleanedPackages.filter(packageInfo => parsedFailOnArray.includes(packageInfo.licenses));
+    const invalidPackageList = packageList
+      .filter(packageInfo => parsedFailOnArray.includes(packageInfo.licenses));
 
-    // Generate report
-    if (failOnOutput.length && !argv.disableErrorReport) {
-      writeReportFile(argv.errorReportFileName, failOnOutput);
+    // Generate report with packages containing the licenses passed to `failOn`
+    if (invalidPackageList.length && !argv.disableErrorReport) {
+      writeReportFile(argv.errorReportFileName, invalidPackageList);
     }
 
-    // Check if should exit
-    if (failOnOutput.length) {
-      const failingLicensesArray = failOnOutput.map(p => p.licenses);
-      const failingLicensesSet = new Set(failingLicensesArray);
-      console.error('Found license defined by the --failOn flag: "' + Array.from(failingLicensesSet).join(', ') + '". Exiting.');
+    // Stop execution if packages were found for the selected licenses
+    if (invalidPackageList.length) {
+      const failingLicensesStats= invalidPackageList
+        .reduce((stats, { licenses }) => ({
+          ...stats,
+          [licenses]: !stats[licenses] ? 1 : stats[licenses] + 1,
+        }), {});
+
+      console.error(`Found ${invalidPackageList.length} packages with licenses defined by the --failOn flag:`);
+      Object.keys(failingLicensesStats).forEach(license => {
+        console.error(` > ${failingLicensesStats[license]} packages with license ${license}`);
+      })
+
       process.exit(1);
     }
   }
@@ -38,8 +48,8 @@ checker.init({
   const parsedGenerateOutputOn = argv.generateOutputOn ? argv.generateOutputOn.split(',') : [];
   const parsedGenerateOutputOnArray = parsedGenerateOutputOn.map(p => p.trim());
 
-  if (!parsedGenerateOutputOnArray.length || cleanedPackages.some(p => parsedGenerateOutputOnArray.includes(p.licenses))) {
+  if (!parsedGenerateOutputOnArray.length || packageList.some(p => parsedGenerateOutputOnArray.includes(p.licenses))) {
     console.info('License check completed! No forbidden licenses packages found.');
-    writeReportFile(argv.outputFileName, cleanedPackages);
+    writeReportFile(argv.outputFileName, packageList);
   }
 });
