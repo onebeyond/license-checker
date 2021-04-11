@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const checker = require('license-checker');
-var fs = require('fs');
+const fs = require('fs');
 
 const argv = require('./src/args');
 
