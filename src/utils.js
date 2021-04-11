@@ -12,15 +12,16 @@ const fs = require('fs');
  *
  * @returns List of objects with package metadata
  */
- const cleanOutput = packages => Object.entries(packages).map(([key, value]) => {
-  const { path, licenseFile, ...rest } = value;
-  const validInfo = {
-    package: key,
-    ...rest,
-  };
+const getPackageInfoList = packages => Object.entries(packages)
+  .map(([key, value]) => {
+    const { path, licenseFile, ...rest } = value;
+    const validInfo = {
+      package: key,
+      ...rest,
+    };
 
-  return validInfo;
-});
+    return validInfo;
+  });
 
 /**
  *  Generate report file in JSON format.
@@ -39,6 +40,6 @@ const writeReportFile = (outputFileName, outputData = []) => {
 };
 
 module.exports = {
-  cleanOutput,
+  getPackageInfoList,
   writeReportFile,
 };

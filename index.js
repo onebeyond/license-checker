@@ -3,7 +3,7 @@
 const checker = require('license-checker');
 
 const argv = require('./src/args');
-const { cleanOutput, writeReportFile } = require('./src/utils');
+const { getPackageInfoList, writeReportFile } = require('./src/utils');
 
 checker.init({
   start: __dirname,
@@ -14,7 +14,7 @@ checker.init({
   }
 
   // Generate an array of package info objects
-  const packageList = cleanOutput(packages);
+  const packageList = getPackageInfoList(packages);
 
   if (argv.failOn) {
     const parsedFailOn = argv.failOn.split(',');
