@@ -6,14 +6,14 @@ var fs = require('fs');
 const argv = require('./src/args');
 
 const cleanOutput = packages => Object.entries(packages).map(([key, value]) => {
-    const { path, licenseFile, ...rest } = value;
-    const validInfo = {
-      package_name: key,
-      ...rest,
-    };
+  const { path, licenseFile, ...rest } = value;
+  const validInfo = {
+    package_name: key,
+    ...rest,
+  };
 
-    return validInfo;
-  });
+  return validInfo;
+});
 
 checker.init({
   start: __dirname,
@@ -36,7 +36,7 @@ checker.init({
           `${argv.errorReportFileName}.txt`,
           JSON.stringify(failOnOutput, null, "\t"), error => {
             if (error) throw error;
-        });
+          });
 
         console.info(`${argv.errorReportFileName}.txt created!`);
       }
@@ -60,7 +60,7 @@ checker.init({
         `${argv.outputFileName}.txt`,
         JSON.stringify(cleanedPackages, null, "\t"), error => {
           if (error) throw error;
-      });
+        });
 
       console.info(`${argv.outputFileName}.txt created!`);
     }
