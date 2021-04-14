@@ -1,7 +1,8 @@
 const fs = require('fs');
+const _ = require('lodash');
 
 /**
- *  Generate objects with information on each package that we want to include
+ * Generate objects with information on each package that we want to include
  * in the report files. This will include metadata such as the package name,
  * author or license name, among others.
  *
@@ -24,20 +25,27 @@ const getPackageInfoList = packages => Object.entries(packages)
   });
 
 /**
- *  Generate report file in JSON format.
+ * Generate report file.
  *
- * @param {string} outputFileName - Name of the file that will be written
- * @param {object[]} outputData - Data to write inside of the file
+ * @param {string} outputFileName - Name of the file for the generated report
+ * @param {object[]} packageList - List of packages to be dumped inside of the file
  */
-const writeReportFile = (outputFileName, outputData = []) => {
-  fs.writeFileSync(
-    `${outputFileName}.txt`,
-    JSON.stringify(outputData, null, '\t'), error => {
-      if (error) throw error;
-    });
+const writeReportFile = (outputFileName, packageList) => {
+  const compiled = _.template(
+    '| Library | Version | License | Repository |\n|---|---|---|---|\n<% _.forEach(report, elem => { const r = /(.*)@(.*)/.exec(elem.package); %>| <%- r[1] %> | <%- r[2] %> | <%- elem.licenses %> | <%- elem.repository %> |\n<% }); %>');
 
-  console.info(`${outputFileName}.txt created!`);
+  const output = compiled({ 'report': packageList });
+  fs.writeFileSync(
+    `${outputFileName}.md`,
+    output, error => {
+      if (error) {
+        console.error(`Error generating report file ${outputFileName}.md`)
+        throw error;
+      }
+    });
+  console.info(`${outputFileName}.md created!`);
 };
+
 
 module.exports = {
   getPackageInfoList,
