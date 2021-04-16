@@ -12,6 +12,11 @@ if (process.platform === 'win32') {
  * license checker utility via CLI.
  */
 module.exports = yargs
+  .option('start', {
+    description: 'path of the initial json to look for',
+    type: 'string',
+    default: process.cwd(),
+  })
   .option('failOn', {
     description: 'fail (exit with code 1) on the first occurrence of the licenses of the comma-separated list',
     type: 'string',

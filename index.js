@@ -7,7 +7,7 @@ const argv = require('./src/args');
 const { getPackageInfoList, writeReportFile } = require('./src/utils');
 
 checker.init({
-  start: __dirname,
+  start: argv.start
 }, (err, packages) => {
   if (err) {
     console.error('license-checker error:', err);
