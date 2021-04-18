@@ -38,7 +38,7 @@ checker.init({
       });
 
       // Generate report with packages containing the licenses passed to `failOn`
-      if (!argv.disableErrorReport) {
+      if (!argv.disableReport && !argv.disableErrorReport) {
         writeReportFile(argv.errorReportFileName, invalidPackageList);
       }
 
@@ -51,6 +51,8 @@ checker.init({
 
   if (!parsedGenerateOutputOnArray.length || packageList.some(p => parsedGenerateOutputOnArray.includes(p.licenses))) {
     console.info('License check completed! No forbidden licenses packages found.');
-    writeReportFile(argv.outputFileName, packageList);
+    if (!argv.disableReport) {
+      writeReportFile(argv.outputFileName, packageList);
+    }
   }
 });
