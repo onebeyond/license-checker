@@ -8,7 +8,7 @@ License checker for GuideSmiths projects
 
 ## Description
 
-This package allows you to do a quick audit on your NPM dependencies by adding it in your hooks. 
+This package allows you to do a quick audit on your NPM dependencies by adding it in your hooks.
 
 You can optionally add options to exclude generating the report or avoid generating the error report in case a forbidden license is found (see more details [here](#options))
 ## How to use it in your project
@@ -38,6 +38,7 @@ npx @guidesmiths/license-checker --failOn license1,license2
 | --outputFileName | name of the output file generated | string | `licence-report-<timestamp>.md` |
 | --errorReportFileName | name of the file generated when a licence in the failOn option is found | string | `license-error-<timestamp>.md` |
 | --disableErrorReport | flag to disable the error report file generation | boolean | `false` |
+| --disableReport | flag to disable the report file generation, whether there is an error or not | boolean | `false` |
 | -h, --help | Shows help | boolean |   |
 
 ## Useful links
