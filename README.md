@@ -6,6 +6,9 @@
 
 License checker for GuideSmiths projects
 
+## Roadmap:
+https://github.com/guidesmiths/license-checker/issues/29
+
 ## Description
 
 This package allows you to do a quick audit on your NPM dependencies by adding it in your hooks. 
