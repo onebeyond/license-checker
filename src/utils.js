@@ -31,8 +31,19 @@ const getPackageInfoList = packages => Object.entries(packages)
  *
  * @param {string} outputFileName - Name of the file for the generated report
  * @param {object[]} packageList - List of packages to be dumped inside of the file
+ * @param {string} customHeaderFileName - Name of the file that contains the custom header
+ *  to add at the beginning of the generated report
  */
-const writeReportFile = (outputFileName, packageList) => {
+const writeReportFile = (outputFileName, packageList, customHeaderFileName) => {
+  let customHeader = '';
+  if (customHeaderFileName) {
+    try {
+      customHeader = `${fs.readFileSync(customHeaderFileName)}\n`;
+    } catch {
+      console.error(`Failed to read file ${customHeaderFileName}, so no custom header will be added to the report`);
+    }
+  }
+
   const compiled = _.template(
     `${licenseReportHeader}<% _.forEach(report, elem => { const r = /(.*)@(.*)/.exec(elem.package); %>| <%- r[1] %> | <%- r[2] %> | <%- elem.licenses %> | <%- elem.repository %> |\n<% }); %>`,
   );
@@ -40,7 +51,8 @@ const writeReportFile = (outputFileName, packageList) => {
   const output = compiled({ 'report': packageList });
   fs.writeFileSync(
     `${outputFileName}.md`,
-    output, error => {
+    `${customHeader}${output}`,
+    error => {
       if (error) {
         console.error(`Error generating report file ${outputFileName}.md`)
         throw error;

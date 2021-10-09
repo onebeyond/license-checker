@@ -51,6 +51,6 @@ checker.init({
 
   if (!parsedGenerateOutputOnArray.length || packageList.some(p => parsedGenerateOutputOnArray.includes(p.licenses))) {
     console.info('License check completed! No forbidden licenses packages found.');
-    writeReportFile(argv.outputFileName, packageList);
+    writeReportFile(argv.outputFileName, packageList, argv.customHeader);
   }
 });
