@@ -2,7 +2,6 @@ const fs = require('fs');
 const _ = require('lodash');
 
 const defaultReportHeader = 'This application makes use of the following open source packages:';
-const licenseTableHeader = '\n| Library | Version | License | Repository |\n|---|---|---|---|\n';
 
 /**
  * Generate objects with information on each package that we want to include
@@ -28,6 +27,22 @@ const getPackageInfoList = packages => Object.entries(packages)
   });
 
 /**
+ *  Generates a table in markdown format with information on the installed
+ * packages, including their licenses.
+ *
+ * @param {object[]} packageList - List of packages to be dumped inside of the file
+ */
+const buildPackageTable = packageList => {
+  const tableHeader = '\n| Library | Version | License | Repository |\n|---|---|---|---|\n';
+
+  const compiled = _.template(
+    `${tableHeader}<% _.forEach(report, elem => { const r = /(.*)@(.*)/.exec(elem.package); %>| <%- r[1] %> | <%- r[2] %> | <%- elem.licenses %> | <%- elem.repository %> |\n<% }); %>`,
+  );
+
+  return compiled({ 'report': packageList });
+};
+
+/**
  * Generate report file.
  *
  * @param {string} outputFileName - Name of the file for the generated report
@@ -45,11 +60,7 @@ const writeReportFile = (outputFileName, packageList, customHeaderFileName) => {
     }
   }
 
-  const compiled = _.template(
-    `${licenseTableHeader}<% _.forEach(report, elem => { const r = /(.*)@(.*)/.exec(elem.package); %>| <%- r[1] %> | <%- r[2] %> | <%- elem.licenses %> | <%- elem.repository %> |\n<% }); %>`,
-  );
-
-  const licenseTable = compiled({ 'report': packageList });
+  const licenseTable = buildPackageTable(packageList);
 
   fs.writeFileSync(
     `${outputFileName}.md`,
@@ -64,7 +75,6 @@ const writeReportFile = (outputFileName, packageList, customHeaderFileName) => {
 
   console.info(`${outputFileName}.md created!`);
 };
-
 
 module.exports = {
   getPackageInfoList,
