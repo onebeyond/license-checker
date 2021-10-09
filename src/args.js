@@ -40,6 +40,10 @@ module.exports = yargs
     type: 'boolean',
     default: false
   })
+  .option('customHeader', {
+    description: 'name of a text file containing the custom header we want to apply to the generated report',
+    type: 'string'
+  })
   .help()
   .alias('help', 'h')
   .argv;
