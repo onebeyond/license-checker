@@ -41,7 +41,7 @@ module.exports = yargs
     default: false
   })
   .option('customHeader', {
-    description: 'name of a text file containing the custom header we want to apply to the generated report',
+    description: 'name of a text file containing the custom header to add at the start of the generated report',
     type: 'string'
   })
   .help()
