@@ -1,7 +1,8 @@
 const fs = require('fs');
 const _ = require('lodash');
 
-const licenseReportHeader = 'This application makes use of the following open source packages:\n\n| Library | Version | License | Repository |\n|---|---|---|---|\n';
+const defaultReportHeader = 'This application makes use of the following open source packages:';
+const licenseTableHeader = '\n| Library | Version | License | Repository |\n|---|---|---|---|\n';
 
 /**
  * Generate objects with information on each package that we want to include
@@ -35,29 +36,32 @@ const getPackageInfoList = packages => Object.entries(packages)
  *  to add at the beginning of the generated report
  */
 const writeReportFile = (outputFileName, packageList, customHeaderFileName) => {
-  let customHeader = '';
+  let licenseReportHeader = defaultReportHeader;
   if (customHeaderFileName) {
     try {
-      customHeader = `${fs.readFileSync(customHeaderFileName)}\n`;
+      licenseReportHeader = fs.readFileSync(customHeaderFileName);
     } catch {
-      console.error(`Failed to read file ${customHeaderFileName}, so no custom header will be added to the report`);
+      console.error(`Failed to read file ${customHeaderFileName}, so default header will be added to the report`);
     }
   }
 
   const compiled = _.template(
-    `${licenseReportHeader}<% _.forEach(report, elem => { const r = /(.*)@(.*)/.exec(elem.package); %>| <%- r[1] %> | <%- r[2] %> | <%- elem.licenses %> | <%- elem.repository %> |\n<% }); %>`,
+    `${licenseTableHeader}<% _.forEach(report, elem => { const r = /(.*)@(.*)/.exec(elem.package); %>| <%- r[1] %> | <%- r[2] %> | <%- elem.licenses %> | <%- elem.repository %> |\n<% }); %>`,
   );
 
-  const output = compiled({ 'report': packageList });
+  const licenseTable = compiled({ 'report': packageList });
+
   fs.writeFileSync(
     `${outputFileName}.md`,
-    `${customHeader}${output}`,
+    `${licenseReportHeader}\n${licenseTable}`,
     error => {
       if (error) {
         console.error(`Error generating report file ${outputFileName}.md`)
         throw error;
       }
-    });
+    },
+  );
+
   console.info(`${outputFileName}.md created!`);
 };
 
