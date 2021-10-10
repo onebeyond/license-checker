@@ -4,7 +4,11 @@ const checker = require('license-checker');
 const _ = require('lodash');
 
 const argv = require('./src/args');
-const { getPackageInfoList, writeReportFile } = require('./src/utils');
+const { getPackageInfoList, writeReportFile, checkIfLicenseAreCorrect } = require('./src/utils');
+
+if (argv.failOn) {
+  checkIfLicenseAreCorrect(argv);
+};
 
 checker.init({
   start: argv.start
