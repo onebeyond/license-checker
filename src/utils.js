@@ -65,7 +65,7 @@ const transformLicense = (license) => {
 
   const licenseRegex = new RegExp(license, 'i');
 
-  return getAllCorrectLicenses(licenseRegex);
+  return license + ',' + getAllCorrectLicenses(licenseRegex);
 }
 
 /**
@@ -81,6 +81,8 @@ const checkIfLicenseAreCorrect = (argv) => {
     .split(",")
     .map(transformLicense)
     .join(",");
+
+  console.log(argv);
 
   return argv;
 };
