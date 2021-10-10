@@ -1,16 +1,15 @@
 #!/usr/bin/env node
 
-const checker = require('license-checker');
-const _ = require('lodash');
+const checker = require("license-checker");
 
-const argv = require('./src/args');
-const { getPackageInfoList, writeReportFile } = require('./src/utils');
+const argv = require("./src/args");
+const { getPackageInfoList, writeReportFile } = require("./src/utils");
 
 checker.init({
   start: argv.start
 }, (err, packages) => {
   if (err) {
-    console.error('license-checker error:', err);
+    console.error("license-checker error:", err);
     process.exit(1);
   }
 
@@ -18,7 +17,7 @@ checker.init({
   const packageList = getPackageInfoList(packages);
 
   if (argv.failOn) {
-    const parsedFailOn = argv.failOn.split(',');
+    const parsedFailOn = argv.failOn.split(",");
     const parsedFailOnArray = parsedFailOn.map(p => p.trim());
 
     const invalidPackageList = packageList
@@ -29,7 +28,7 @@ checker.init({
       const forbiddenLicenseStats = invalidPackageList
         .reduce((stats, { licenses }) => ({
           ...stats,
-          [licenses]: !stats[licenses] ? 1 : stats[licenses] + 1,
+          [licenses]: !stats[licenses] ? 1 : stats[licenses] + 1
         }), {});
 
       console.error(`Found ${invalidPackageList.length} packages with licenses defined by the --failOn flag:`);
@@ -46,11 +45,11 @@ checker.init({
     }
   }
 
-  const parsedGenerateOutputOn = argv.generateOutputOn ? argv.generateOutputOn.split(',') : [];
+  const parsedGenerateOutputOn = argv.generateOutputOn ? argv.generateOutputOn.split(",") : [];
   const parsedGenerateOutputOnArray = parsedGenerateOutputOn.map(p => p.trim());
 
   if (!parsedGenerateOutputOnArray.length || packageList.some(p => parsedGenerateOutputOnArray.includes(p.licenses))) {
-    console.info('License check completed! No forbidden licenses packages found.');
+    console.info("License check completed! No forbidden licenses packages found.");
     writeReportFile(argv.outputFileName, packageList);
   }
 });
