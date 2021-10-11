@@ -70,7 +70,8 @@ const transformLicense = (license) => {
 
 /**
  * Check if all licenses insert by user are correct, 
- * those who aren't will be replaced by the correct one.
+ * those who aren't will be tested and when a matching 
+ * license is found it will be added in the string.
  * 
  * @param  {object} argv - arguments
  * 
