@@ -9,7 +9,6 @@
     "ecmaVersion": 2020
   },
   "rules": {
-    "semi": ["error", "always"],
-    "quotes": ["error", "double"]
+    "semi": ["error", "always"]
   }
 }

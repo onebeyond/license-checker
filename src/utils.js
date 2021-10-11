@@ -1,7 +1,7 @@
-const fs = require("fs");
-const _ = require("lodash");
+const fs = require('fs');
+const _ = require('lodash');
 
-const licenseReportHeader = "This application makes use of the following open source packages:\n\n| Library | Version | License | Repository |\n|---|---|---|---|\n";
+const licenseReportHeader = 'This application makes use of the following open source packages:\n\n| Library | Version | License | Repository |\n|---|---|---|---|\n';
 
 /**
  * Generate objects with information on each package that we want to include

@@ -30,7 +30,9 @@
   "scripts": {
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate",
-    "lint": "eslint --fix --ext .js ."
+    "prepare": "husky install",
+    "lint": "eslint *.js .",
+    "lint:fix": "eslint --fix --ext .js ."
   },
   "license": "ISC",
   "bugs": {
