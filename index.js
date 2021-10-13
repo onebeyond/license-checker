@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 const checker = require('license-checker');
-const _ = require('lodash');
 
 const argv = require('./src/args');
 const { getPackageInfoList, writeReportFile } = require('./src/utils');
@@ -29,7 +28,7 @@ checker.init({
       const forbiddenLicenseStats = invalidPackageList
         .reduce((stats, { licenses }) => ({
           ...stats,
-          [licenses]: !stats[licenses] ? 1 : stats[licenses] + 1,
+          [licenses]: !stats[licenses] ? 1 : stats[licenses] + 1
         }), {});
 
       console.error(`Found ${invalidPackageList.length} packages with licenses defined by the --failOn flag:`);
