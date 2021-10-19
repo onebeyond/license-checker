@@ -40,6 +40,11 @@ module.exports = yargs
     type: 'boolean',
     default: false
   })
+  .option('disableReport', {
+    description: 'flag to disable the report file generation, whether there is an error or not',
+    type: 'boolean',
+    default: false
+  })
   .help()
   .alias('help', 'h')
   .argv;
