@@ -111,8 +111,6 @@ const checkIfLicenseAreCorrect = (argv) => {
     .map(transformLicense)
     .join(",");
 
-  console.log(argv);
-
   return argv;
 };
 
