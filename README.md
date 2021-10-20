@@ -41,6 +41,7 @@ npx @guidesmiths/license-checker --failOn license1,license2
 | --outputFileName | Name of the output file generated | string | `license-report-<timestamp>.md` |
 | --errorReportFileName | Name of the file generated when a license in the failOn option is found | string | `license-error-<timestamp>.md` |
 | --disableErrorReport | Flag to disable the error report file generation | boolean | `false` |
+| --disableReport | Flag to disable the report file generation, whether there is an error or not | boolean | `false` |
 | --customHeader | Name of a text file containing the custom header to add at the start of the generated report | string | |
 | -h, --help | Shows help | boolean |   |
 

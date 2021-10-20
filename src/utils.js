@@ -20,7 +20,7 @@ const getPackageInfoList = packages => Object.entries(packages)
     const { path, licenseFile, ...rest } = value;
     const validInfo = {
       package: key,
-      ...rest,
+      ...rest
     };
 
     return validInfo;
@@ -39,7 +39,7 @@ const buildPackageTable = packageList => {
     `${tableHeader}<% _.forEach(report, elem => { const r = /(.*)@(.*)/.exec(elem.package); %>| <%- r[1] %> | <%- r[2] %> | <%- elem.licenses %> | <%- elem.repository %> |\n<% }); %>`,
   );
 
-  return compiled({ 'report': packageList });
+  return compiled({ report: packageList });
 };
 
 /**
@@ -67,7 +67,7 @@ const writeReportFile = (outputFileName, packageList, customHeaderFileName) => {
     `${licenseReportHeader}\n${licenseTable}`,
     error => {
       if (error) {
-        console.error(`Error generating report file ${outputFileName}.md`)
+        console.error(`Error generating report file ${outputFileName}.md`);
         throw error;
       }
     },
@@ -78,5 +78,5 @@ const writeReportFile = (outputFileName, packageList, customHeaderFileName) => {
 
 module.exports = {
   getPackageInfoList,
-  writeReportFile,
+  writeReportFile
 };
