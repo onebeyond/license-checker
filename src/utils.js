@@ -56,7 +56,7 @@ const writeReportFile = (outputFileName, packageList, customHeaderFileName) => {
     try {
       licenseReportHeader = fs.readFileSync(customHeaderFileName);
     } catch {
-      console.error(`Failed to read file ${customHeaderFileName}, so default header will be added to the report`);
+      console.warn(`Failed to read file ${customHeaderFileName}, so default header will be added to the report`);
     }
   }
 
