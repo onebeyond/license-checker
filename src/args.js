@@ -28,10 +28,10 @@ module.exports = yargs
   .option('outputFileName', {
     description: 'name of the output file generated',
     type: 'string',
-    default: `licence-report-${timestamp}`
+    default: `license-report-${timestamp}`
   })
   .option('errorReportFileName', {
-    description: 'name of the file generated when a licence in the failOn option is found',
+    description: 'name of the file generated when a license in the failOn option is found',
     type: 'string',
     default: `license-error-${timestamp}`
   })
@@ -44,6 +44,10 @@ module.exports = yargs
     description: 'flag to disable the report file generation, whether there is an error or not',
     type: 'boolean',
     default: false
+  })
+  .option('customHeader', {
+    description: 'name of a text file containing the custom header to add at the start of the generated report',
+    type: 'string'
   })
   .help()
   .alias('help', 'h')
