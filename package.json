@@ -1,6 +1,6 @@
 {
   "name": "@guidesmiths/license-checker",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "License checker for GuideSmiths projects",
   "main": "index.js",
   "bin": {
@@ -36,7 +36,7 @@
     "release:patch": "npm run release -- --release-as patch",
     "release:alpha": "npm run release -- --prerelease alpha",
     "release:prerelease": "npm run release -- prerelease",
-    "prepare": "husky install",
+    "prepare": "./node_modules/.bin/is-ci || husky install",
     "lint": "eslint *.js .",
     "lint:fix": "eslint --fix --ext .js ."
   },
@@ -46,6 +46,7 @@
   },
   "homepage": "https://github.com/guidesmiths/license-checker#readme",
   "dependencies": {
+    "is-ci": "3.0.1",
     "license-checker": "25.0.1",
     "lodash": "4.17.21",
     "yargs": "17.2.1"
