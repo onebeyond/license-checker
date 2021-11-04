@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.1](https://github.com/guidesmiths/license-checker/compare/v1.1.0...v1.1.1) (2021-11-04)
+
+
+### Bug Fixes
+
+* added is-ci to avoid running husky in ci ([300ff3e](https://github.com/guidesmiths/license-checker/commit/300ff3ef9efb522ebc250fd1fc93dc700888643a))
+* dependecies fixed versions ([9be5136](https://github.com/guidesmiths/license-checker/commit/9be51365c299494e6cc72fc1b71fc9e6b4972de9))
+
 ## [1.1.0](https://github.com/guidesmiths/license-checker/compare/v1.0.0...v1.1.0) (2021-11-03)
 
 
