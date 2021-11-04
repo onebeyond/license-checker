@@ -2,14 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [1.0.6](https://github.com/guidesmiths/license-checker/compare/v1.0.0...v1.0.6) (2021-10-11)
+## [1.1.0](https://github.com/guidesmiths/license-checker/compare/v1.0.0...v1.1.0) (2021-11-03)
 
 
 ### Features
 
+* add custom header at the start of report ([b27c27b](https://github.com/guidesmiths/license-checker/commit/b27c27be392a02b676575a08e0a597c0f545ae20))
 * add header to auto generated license file ([6d02348](https://github.com/guidesmiths/license-checker/commit/6d02348b7b26e7891418e5e28103454c73b884e8))
+* add new 'disableReport' option to args ([ca4257d](https://github.com/guidesmiths/license-checker/commit/ca4257dc31efe4f733667d0c42f51c406bc89da1))
 * added PR, bug and feature request templates ([a8afc42](https://github.com/guidesmiths/license-checker/commit/a8afc4240bd951e5c967c6555ed429bfb853f4eb))
 * create md file with table format for license report ([a798550](https://github.com/guidesmiths/license-checker/commit/a798550aea746083d2cf1c0a6d87074192e71746))
+* define new option to set up a custom header ([dd02054](https://github.com/guidesmiths/license-checker/commit/dd02054817d46c040c06447463271ca6d6d38f25))
+* don't generate report if 'disableReport' is enabled ([13e92ef](https://github.com/guidesmiths/license-checker/commit/13e92ef4354f4ae2063aee29af77e036078fe372))
+* eslint ([b88e671](https://github.com/guidesmiths/license-checker/commit/b88e671f7b41cf709be81b73fb567c46496015ad))
 * show package count for each invalid license ([e5a9f63](https://github.com/guidesmiths/license-checker/commit/e5a9f63fd428a5dea7de1bd68c66ccf409ceb927))
 
 
@@ -27,5 +32,6 @@ All notable changes to this project will be documented in this file. See [standa
 * github action to publish to npm ([0352cde](https://github.com/guidesmiths/license-checker/commit/0352cde99d519fe40c98962bff3d7b42206b92af))
 * github action to publish to npm ([b5833ac](https://github.com/guidesmiths/license-checker/commit/b5833ac0954e44124d7da2c367ff852a307010fc))
 * github action to publish to npm ([904ce4b](https://github.com/guidesmiths/license-checker/commit/904ce4b616fa76e9880c43ea9cb4f23538d1e9cc))
+* husky lint ([5c6c1b8](https://github.com/guidesmiths/license-checker/commit/5c6c1b8b61de205c90436f032ff48adbd7466e64))
 * run with npx ([ee0eb2b](https://github.com/guidesmiths/license-checker/commit/ee0eb2b47f3ff0a341fa5ac8c0b35199d4160e23))
 * update readme ([c9c9f3c](https://github.com/guidesmiths/license-checker/commit/c9c9f3c6768544f0e4e310b7ac1cde29e4bdee15))

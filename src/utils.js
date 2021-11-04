@@ -36,7 +36,7 @@ const buildPackageTable = packageList => {
   const tableHeader = '\n| Library | Version | License | Repository |\n|---|---|---|---|\n';
 
   const compiled = _.template(
-    `${tableHeader}<% _.forEach(report, elem => { const r = /(.*)@(.*)/.exec(elem.package); %>| <%- r[1] %> | <%- r[2] %> | <%- elem.licenses %> | <%- elem.repository %> |\n<% }); %>`,
+    `${tableHeader}<% _.forEach(report, elem => { const r = /(.*)@(.*)/.exec(elem.package); %>| <%- r[1] %> | <%- r[2] %> | <%- elem.licenses %> | <%- elem.repository %> |\n<% }); %>`
   );
 
   return compiled({ report: packageList });
@@ -70,7 +70,7 @@ const writeReportFile = (outputFileName, packageList, customHeaderFileName) => {
         console.error(`Error generating report file ${outputFileName}.md`);
         throw error;
       }
-    },
+    }
   );
 
   console.info(`${outputFileName}.md created!`);
