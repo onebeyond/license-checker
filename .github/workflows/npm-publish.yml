@@ -7,21 +7,9 @@ on:
   push:
     branches:
       - main
-    # types: [created]
 
 jobs:
-#  build:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v2
-#      - uses: actions/setup-node@v1
-#        with:
-#          node-version: 12
-#      - run: npm ci
-#      - run: npm test
-
   publish-npm:
-#    needs: build
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -30,10 +18,9 @@ jobs:
       with:
         node-version: '12.x'
         registry-url: 'https://registry.npmjs.org'
-    - run: npm ci
+    - run: npm ci --production
     - run: |
         npm publish --ignore-scripts --access public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_GUIDESMITHS }}
-    # - run: npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN} && npm publish --ignore-scripts
 
