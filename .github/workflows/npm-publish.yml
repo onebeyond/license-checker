@@ -1,26 +1,27 @@
 # This workflow will run tests using node and then publish a package to npm when a release is created
 # For more information see: https://help.github.com/actions/language-and-framework-guides/publishing-nodejs-packages
 
-name: Node.js Package
+name: Publish package to npm public registry
 
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [ published ]
 
 jobs:
   publish-npm:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    # Setup .npmrc file to publish to npm
-    - uses: actions/setup-node@v1
+    - name: Check-out the repository
+      uses: actions/checkout@v2
+    - name: Setup node version 16.13.0 (LTS)
+      uses: actions/setup-node@v2
       with:
-        node-version: '12.x'
+        node-version: '16.13.0'
         registry-url: 'https://registry.npmjs.org'
-    - run: npm ci --production
-    - run: |
-        npm publish --ignore-scripts --access public
+    - name: Install production dependencies
+      run: npm ci --production
+    - name: Publish package to npm
+      run: npm publish --ignore-scripts --access public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_GUIDESMITHS }}
 
