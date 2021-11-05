@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/guidesmiths/license-checker/compare/v1.1.1...v1.2.0) (2021-11-05)
+
+
+### Bug Fixes
+
+* checkIfLicenseAreCorrect description ([3e64350](https://github.com/guidesmiths/license-checker/commit/3e6435081a76295225bff0ecc1a9a0c132916637))
+* license validation ([35b59f1](https://github.com/guidesmiths/license-checker/commit/35b59f1735aa8a98f031aba3fc78d38fa73a71da))
+* linter errors ([ff76675](https://github.com/guidesmiths/license-checker/commit/ff766751844b0aa61e2bbe55f06a3d8bcf7d42b3))
+* removed console.log ([8c6de5e](https://github.com/guidesmiths/license-checker/commit/8c6de5e9b0d197fdb2942fca26c922ee985e85b9))
+* return also users licenses even if not in licenses array ([5d55997](https://github.com/guidesmiths/license-checker/commit/5d55997bde7cb6c9070ceee7c9f04d0e34c7bd98))
+
 ### [1.1.1](https://github.com/guidesmiths/license-checker/compare/v1.1.0...v1.1.1) (2021-11-04)
 
 
