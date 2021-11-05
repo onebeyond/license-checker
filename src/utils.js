@@ -1,6 +1,8 @@
 const fs = require('fs');
 const _ = require('lodash');
 
+const licenseReportHeader = 'This application makes use of the following open source packages:\n\n| Library | Version | License | Repository |\n|---|---|---|---|\n';
+const licenses = ['0BSD', 'Apache-2.0', 'Apache-1.0', 'MIT', 'ISC', 'BSD-Source-Code', 'WTFPL', 'CC0-1.0', 'GPL', 'LGPL'];
 const defaultReportHeader = 'This application makes use of the following open source packages:';
 
 /**
@@ -76,7 +78,45 @@ const writeReportFile = (outputFileName, packageList, customHeaderFileName) => {
   console.info(`${outputFileName}.md created!`);
 };
 
+const getAllCorrectLicenses = (licenseRegex) =>
+  licenses.reduce((acc, correctLicense) => {
+      if (licenseRegex.test(correctLicense)) return [...acc, correctLicense];
+
+      return acc;
+    }, []).flat();
+
+const isValidLicense = (license) => licenses.includes(license)
+
+const transformLicense = (license) => {
+
+  if(isValidLicense(license)) return license;
+
+  const licenseRegex = new RegExp(license, 'i');
+
+  return license + ',' + getAllCorrectLicenses(licenseRegex);
+}
+
+/**
+ * Check if all licenses insert by user are correct, 
+ * those who aren't will be tested and when a matching 
+ * license is found it will be added in the string.
+ * 
+ * @param  {object} argv - arguments
+ * 
+ * @returns arguments
+ */
+const checkIfLicenseAreCorrect = (argv) => {
+  argv.failOn = argv.failOn
+    .split(",")
+    .map(transformLicense)
+    .join(",");
+
+  return argv;
+};
+
+
 module.exports = {
   getPackageInfoList,
-  writeReportFile
+  writeReportFile,
+  checkIfLicenseAreCorrect,
 };
