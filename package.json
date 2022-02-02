@@ -1,6 +1,6 @@
 {
   "name": "@guidesmiths/license-checker",
-  "version": "1.0.6",
+  "version": "1.2.0",
   "description": "License checker for GuideSmiths projects",
   "main": "index.js",
   "bin": {
@@ -30,7 +30,13 @@
   "scripts": {
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate",
-    "prepare": "husky install",
+    "release": "standard-version",
+    "release:major": "npm run release -- --release-as major",
+    "release:minor": "npm run release -- --release-as minor",
+    "release:patch": "npm run release -- --release-as patch",
+    "release:alpha": "npm run release -- --prerelease alpha",
+    "release:prerelease": "npm run release -- prerelease",
+    "prepare": "./node_modules/.bin/is-ci || husky install",
     "lint": "eslint *.js .",
     "lint:fix": "eslint --fix --ext .js ."
   },
@@ -40,19 +46,21 @@
   },
   "homepage": "https://github.com/guidesmiths/license-checker#readme",
   "dependencies": {
+    "is-ci": "3.0.1",
     "license-checker": "25.0.1",
     "lodash": "4.17.21",
-    "yargs": "16.2.0"
+    "yargs": "17.2.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^13.2.0",
-    "@commitlint/config-conventional": "^13.2.0",
+    "@commitlint/cli": "14.1.0",
+    "@commitlint/config-conventional": "14.1.0",
     "all-contributors-cli": "6.20.0",
-    "eslint": "^7.32.0",
-    "eslint-config-standard": "^16.0.3",
-    "eslint-plugin-import": "^2.24.2",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^5.1.0",
-    "husky": "^7.0.2"
+    "husky": "7.0.4",
+    "standard-version": "9.3.2",
+    "eslint": "8.1.0",
+    "eslint-config-standard": "16.0.3",
+    "eslint-plugin-import": "2.25.2",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-promise": "5.1.1"
   }
 }
