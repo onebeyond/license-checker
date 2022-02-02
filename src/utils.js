@@ -52,45 +52,35 @@ const writeReportFile = (outputFileName, packageList) => {
 
 const getAllCorrectLicenses = (licenseRegex) =>
   licenses.reduce((acc, correctLicense) => {
-      if (licenseRegex.test(correctLicense)) return [...acc, correctLicense];
+    if (licenseRegex.test(correctLicense)) return [...acc, correctLicense];
 
-      return acc;
-    }, []).flat();
+    return acc;
+  }, []).flat();
 
-const isValidLicense = (license) => licenses.includes(license)
+const isValidLicense = (license) => licenses.includes(license);
 
 const transformLicense = (license) => {
-
-  if(isValidLicense(license)) return license;
+  if (isValidLicense(license)) return license;
 
   const licenseRegex = new RegExp(license, 'i');
 
   return license + ',' + getAllCorrectLicenses(licenseRegex);
-}
-
-/**
- * Check if all licenses insert by user are correct, 
- * those who aren't will be tested and when a matching 
- * license is found it will be added in the string.
- * 
- * @param  {object} argv - arguments
- * 
- * @returns arguments
- */
-const checkIfLicenseAreCorrect = (argv) => {
-  argv.failOn = argv.failOn
-    .split(",")
-    .map(transformLicense)
-    .join(",");
-
-  console.log(argv);
-
-  return argv;
 };
 
+/**
+ * Check if all licenses insert by user are correct,
+ * those who aren't will be tested and when a matching
+ * license is found it will be added in the string.
+ *
+ * @param  {object} argv - arguments
+ *
+ * @returns arguments
+ */
+const checkIfLicensesAreCorrect = (argv) =>
+  argv.failOn.split(',').map(transformLicense).join(',');
 
 module.exports = {
   getPackageInfoList,
   writeReportFile,
-  checkIfLicenseAreCorrect,
+  checkIfLicensesAreCorrect
 };
