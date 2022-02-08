@@ -109,5 +109,5 @@ const checkIfLicensesAreCorrect = (argv) =>
 module.exports = {
   getPackageInfoList,
   writeReportFile,
-  checkIfLicensesAreCorrect,
+  checkIfLicensesAreCorrect
 };
