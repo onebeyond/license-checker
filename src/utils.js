@@ -103,17 +103,11 @@ const transformLicense = (license) => {
  *
  * @returns arguments
  */
-const checkIfLicenseAreCorrect = (argv) => {
-  argv.failOn = argv.failOn
-    .split(',')
-    .map(transformLicense)
-    .join(',');
-
-  return argv;
-};
+const checkIfLicensesAreCorrect = (argv) =>
+  argv.failOn.split(',').map(transformLicense).join(',');
 
 module.exports = {
   getPackageInfoList,
   writeReportFile,
-  checkIfLicenseAreCorrect
+  checkIfLicensesAreCorrect,
 };

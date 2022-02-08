@@ -3,11 +3,7 @@
 const checker = require('license-checker');
 
 const argv = require('./src/args');
-const { getPackageInfoList, writeReportFile, checkIfLicenseAreCorrect } = require('./src/utils');
-
-if (argv.failOn) {
-  checkIfLicenseAreCorrect(argv);
-};
+const { getPackageInfoList, writeReportFile, checkIfLicensesAreCorrect } = require('./src/utils');
 
 checker.init({
   start: argv.start
@@ -21,6 +17,7 @@ checker.init({
   const packageList = getPackageInfoList(packages);
 
   if (argv.failOn) {
+    argv.failOn = checkIfLicensesAreCorrect(argv);
     const parsedFailOn = argv.failOn.split(',');
     const parsedFailOnArray = parsedFailOn.map(p => p.trim());
 
