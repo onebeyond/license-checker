@@ -7,8 +7,9 @@ on:
     branches: [ main ]
 
 jobs:
-  publish-npm:
+  run-test:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Check-out the repository
         uses: actions/checkout@v2
@@ -18,6 +19,6 @@ jobs:
           node-version: '16.13.0'
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci
-      - run: npm run lint:fix
+      - run: npm run lint
       - run: npm run test
 
