@@ -18,7 +18,7 @@ module.exports = yargs
     default: process.cwd()
   })
   .option('failOn', {
-    description: 'fail (exit with code 1) on the first occurrence of the licenses of the list. If the string is enclosed in slashes, it will handled like a RegExp',
+    description: 'fail (exit with code 1) on the first occurrence of the licenses of the list. If the argument is enclosed in slashes, it will handled like a RegExp',
     type: 'array'
   })
   .option('generateOutputOn', {
