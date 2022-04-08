@@ -3,7 +3,9 @@
 const checker = require('license-checker');
 
 const argv = require('./src/args');
-const { getPackageInfoList, writeReportFile, checkIfLicensesAreCorrect } = require('./src/utils');
+const {
+  getPackageInfoList, writeReportFile, parseFailOnArgs, extractInvalidPackages
+} = require('./src/utils');
 
 checker.init({
   start: argv.start
@@ -16,13 +18,15 @@ checker.init({
   // Generate an array of package info objects
   const packageList = getPackageInfoList(packages);
 
-  if (argv.failOn) {
-    argv.failOn = checkIfLicensesAreCorrect(argv);
-    const parsedFailOn = argv.failOn.split(',');
-    const parsedFailOnArray = parsedFailOn.map(p => p.trim());
+  const { failOn } = argv || {};
+  if (failOn) {
+    const { valid: validArgs, invalid } = parseFailOnArgs(failOn);
+    if (invalid.length) {
+      console.error(`The following args to --failOn are not valid: ${invalid.join(' ')}`);
+      process.exit(1);
+    }
 
-    const invalidPackageList = packageList
-      .filter(packageInfo => parsedFailOnArray.includes(packageInfo.licenses));
+    const invalidPackageList = extractInvalidPackages(validArgs, packageList);
 
     // Stop execution if packages were found for the selected licenses
     if (invalidPackageList.length) {
