@@ -36,6 +36,12 @@ describe('parseFailOnArgs', () => {
     expect(result.invalid).toHaveLength(0);
     expect(result.valid).toEqual(['/MIT']);
   });
+
+  it('parses the argument as string if it does not start with a slash', () => {
+    const result = parseFailOnArgs(['e/MIT/']);
+    expect(result.invalid).toHaveLength(0);
+    expect(result.valid).toEqual(['e/MIT/']);
+  });
 });
 
 describe('extractInvalidPackages', () => {
