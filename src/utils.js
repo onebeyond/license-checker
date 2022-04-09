@@ -100,7 +100,7 @@ const parseFailOnArgs = args => args.reduce((total, arg) => {
  * @param {string|RegExp} expression - The expression the license will be tested against
  * @returns {boolean} - Result of the test
  */
-const checkInvalidLicense = (license, expression) => {
+const licenseMatchesExpression = (license, expression) => {
   const check = {
     string: () => license === expression,
     object: () => expression.test(license)
@@ -117,7 +117,7 @@ const checkInvalidLicense = (license, expression) => {
  * @returns {object[]} - List of invalid packages
  */
 const extractInvalidPackages = (failOnArgs, packages) => packages
-  .filter(({ licenses }) => failOnArgs.some(arg => checkInvalidLicense(licenses, arg)));
+  .filter(({ licenses }) => failOnArgs.some(arg => licenseMatchesExpression(licenses, arg)));
 
 module.exports = {
   getPackageInfoList,
