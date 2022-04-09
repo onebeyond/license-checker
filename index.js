@@ -22,7 +22,7 @@ checker.init({
   if (failOn) {
     const { valid: validArgs, invalid } = parseFailOnArgs(failOn);
     if (invalid.length) {
-      console.error(`The following args to --failOn are not valid: ${invalid.join(' ')}`);
+      console.error(`The following args passed to --failOn are not valid: ${invalid.join(' ')}`);
       process.exit(1);
     }
 
