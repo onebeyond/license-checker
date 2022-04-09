@@ -1,6 +1,6 @@
 const { parseFailOnArgs, extractInvalidPackages } = require('../src/utils');
 
-describe('parsedFailOnArgs', () => {
+describe('parseFailOnArgs', () => {
   it('returns an array of strings when the arguments are strings', () => {
     const result = parseFailOnArgs(['MIT', 'GPL']);
     expect(result.invalid).toHaveLength(0);
