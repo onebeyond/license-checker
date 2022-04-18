@@ -55,8 +55,7 @@ In the following example, `license1` is the pattern to test:
 npx @guidesmiths/license-checker --failOn /license1/
 ```
 
-You may combine both string and regex-like arguments. In this example, `license1` will be handled as a RegExp whereas `license2`
-will be handled as a string:
+You may combine both string and regex-like arguments. In this example, `license1` will be handled as a RegExp whereas `license2` will be handled as a string:
 
 ```sh
 npx @guidesmiths/license-checker --failOn /license1/ license2
