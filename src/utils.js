@@ -101,12 +101,8 @@ const parseFailOnArgs = args => args.reduce((total, arg) => {
  * @returns {boolean} - Result of the test
  */
 const licenseMatchesExpression = (license, expression) => {
-  const check = {
-    string: () => license === expression,
-    object: () => expression.test(license)
-  };
-  const typeOfExpression = typeof expression;
-  return check[typeOfExpression]();
+  if (expression instanceof RegExp) return expression.test(license);
+  return license === expression;
 };
 
 /**
