@@ -2,7 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## [1.4.0](https://github.com/guidesmiths/license-checker/compare/v1.2.1...v1.4.0) (2022-04-21)
+## [1.3.0](https://github.com/guidesmiths/license-checker/compare/v1.2.1...v1.3.0) (2022-04-21)
+
+
+### 🔬 Tests
+
+* add basic test ([f7ed620](https://github.com/guidesmiths/license-checker/commit/f7ed62091ff8868b08f219d0be02e889922cfed3))
+* add eslintrc for tests ([8054b70](https://github.com/guidesmiths/license-checker/commit/8054b70498b0aad026c2a13eca6e47a317cb4dc9))
+
+
+### ☁️ CI
+
+* add workflow for test ([0b698e4](https://github.com/guidesmiths/license-checker/commit/0b698e4c86c38582c594338f2339781c4e9f1cba))
+* address PR feedback ([b8e864e](https://github.com/guidesmiths/license-checker/commit/b8e864e18b8d2aa836d152e3540a09090a849488))
+
+
+### 🔧 Others
+
+* add hook to run tests ([629330c](https://github.com/guidesmiths/license-checker/commit/629330c474976a7ad207596391235cea77f8dbb0))
+* add jest packages ([370b4c0](https://github.com/guidesmiths/license-checker/commit/370b4c0460ff72f6f46cd6cd3d2f6f03fcf402b6))
+* bump package version ([5d7849b](https://github.com/guidesmiths/license-checker/commit/5d7849b8ad6a9bf2b3cebba9af74f8f21ca7ea91))
+* **release:** 1.3.0 ([3e38944](https://github.com/guidesmiths/license-checker/commit/3e389440cdb8fb7b1197793982e6cecc2649e32a))
+* **release:** 1.4.0 ([65d7af7](https://github.com/guidesmiths/license-checker/commit/65d7af7db6706258f8825bbcdfad3ad6681e626d))
 
 ### [1.2.1](https://github.com/guidesmiths/license-checker/compare/v1.2.0...v1.2.1) (2022-02-08)
 
