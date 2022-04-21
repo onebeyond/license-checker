@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/guidesmiths/license-checker/compare/v1.2.1...v1.4.0) (2022-04-21)
+
 ### [1.2.1](https://github.com/guidesmiths/license-checker/compare/v1.2.0...v1.2.1) (2022-02-08)
 
 
