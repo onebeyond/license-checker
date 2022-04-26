@@ -114,3 +114,9 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Code editors
+.idea
+
+# MacOS files
+.DS_Store

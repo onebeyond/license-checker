@@ -2,6 +2,52 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/guidesmiths/license-checker/compare/v1.3.0...v2.0.0) (2022-04-26)
+
+
+### 🔬 Tests
+
+* amend typo ([6f535e7](https://github.com/guidesmiths/license-checker/commit/6f535e7fbda0a0dfa2f32a846276ca4fa78c5fe0))
+* remove temporary test file from previous PR ([8f36489](https://github.com/guidesmiths/license-checker/commit/8f364892b7b6ae7842e4b7f8ef3b6b4c3f63dbbf))
+
+
+### 🔄 Code Refactoring
+
+* accept failOn arguments as a whitespace separated list ([0dffd0a](https://github.com/guidesmiths/license-checker/commit/0dffd0a4406dba89043cf31cb8e6c51004741e84))
+* improve error message on failed args to failOn ([5fccfd6](https://github.com/guidesmiths/license-checker/commit/5fccfd68dcad08744ea1688acf3fb294f029e5e4))
+* improve regexp to extract pattern ([c9027d6](https://github.com/guidesmiths/license-checker/commit/c9027d6380c06657e7672851621ac6c6ee58a07f))
+* rename match function ([ea7402c](https://github.com/guidesmiths/license-checker/commit/ea7402cf4052aff9b56a7933f2d5f7b7a6ba05c7))
+* replace current failOn args filter and admit regexps ([a976f32](https://github.com/guidesmiths/license-checker/commit/a976f32de20c1a270fb9eb1f34152590e8753921))
+* update failOn option description ([4b7ad03](https://github.com/guidesmiths/license-checker/commit/4b7ad037e8f313b7f4178879a630584038e80063))
+* use instanceof instead of strategy pattern ([48409c1](https://github.com/guidesmiths/license-checker/commit/48409c15ac072e1c6794850c39c93468c255de6d))
+* use new utils functions to extract invalid packages ([9ffdbd1](https://github.com/guidesmiths/license-checker/commit/9ffdbd1f2aae951c384a0f58afd61ee26bb7f4c5))
+
+
+### 🔧 Others
+
+* added new contributors ([ee6d996](https://github.com/guidesmiths/license-checker/commit/ee6d996cf920c441fb2f1115f24486bc37dd0503))
+* added nvmrc file ([396fe94](https://github.com/guidesmiths/license-checker/commit/396fe94466b81ad2134da3c448dc576a372014bc))
+* fix changelog date ([cc9635c](https://github.com/guidesmiths/license-checker/commit/cc9635c0ab530e92fdc9207d97de93e1578058ce))
+* ignore .idea folder ([bb69604](https://github.com/guidesmiths/license-checker/commit/bb696041ea2d6d653179a635608a46bd69d944ff))
+* improve PR template ([6830956](https://github.com/guidesmiths/license-checker/commit/6830956c531948d1f2361c5eda278d64c780bcac))
+
+
+### 🎨 Styling
+
+* added assets for logo and banner ([b4ab6b8](https://github.com/guidesmiths/license-checker/commit/b4ab6b877c232f2431ee40a40d12b0b3e2207a2d))
+
+
+### 📝 Docs
+
+* improved readme ([e0c37f0](https://github.com/guidesmiths/license-checker/commit/e0c37f04b19977808a97b08a0271e6896a7bf943))
+* remove line break ([482a741](https://github.com/guidesmiths/license-checker/commit/482a74130beef4a01bd12a099438048253f32a14))
+* update failOn option description and add examples ([b04be1f](https://github.com/guidesmiths/license-checker/commit/b04be1f5d242936b7cdcd9b34776d88a0c292a3d))
+
+
+### 🐛 Bug Fixes
+
+* assets typo ([3a03a6d](https://github.com/guidesmiths/license-checker/commit/3a03a6da6e4cdc7908078c39d9c08e0998ceeea7))
+
 ## [1.3.0](https://github.com/guidesmiths/license-checker/compare/v1.2.1...v1.3.0) (2022-04-06)
 
 

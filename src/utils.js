@@ -1,7 +1,6 @@
 const fs = require('fs');
 const _ = require('lodash');
 
-const licenses = ['0BSD', 'Apache-2.0', 'Apache-1.0', 'MIT', 'ISC', 'BSD-Source-Code', 'WTFPL', 'CC0-1.0', 'GPL', 'LGPL'];
 const defaultReportHeader = 'This application makes use of the following open source packages:';
 
 /**
@@ -77,37 +76,48 @@ const writeReportFile = (outputFileName, packageList, customHeaderFileName) => {
   console.info(`${outputFileName}.md created!`);
 };
 
-const getAllCorrectLicenses = (licenseRegex) =>
-  licenses.reduce((acc, correctLicense) => {
-    if (licenseRegex.test(correctLicense)) return [...acc, correctLicense];
+/**
+ * Parses failOn arguments distinguishing between plain string and
+ * regex like strings
+ *
+ * @param {string[]} args - List of arguments to parse
+ * @returns {{invalid: (string|RegExp)[], valid: (string|RegExp)[]}} - List of valid
+ * and invalid parsed arguments. The invalid object will include unsuccessful parsed regex
+ */
+const parseFailOnArgs = args => args.reduce((total, arg) => {
+  try {
+    const pattern = /^\/(?<pattern>.+)\/$/.exec(arg)?.groups?.pattern;
+    return { ...total, valid: [...total.valid, pattern ? new RegExp(pattern) : arg] };
+  } catch (e) {
+    return { ...total, invalid: [...total.invalid, arg] };
+  }
+}, { valid: [], invalid: [] });
 
-    return acc;
-  }, []).flat();
-
-const isValidLicense = (license) => licenses.includes(license);
-
-const transformLicense = (license) => {
-  if (isValidLicense(license)) return license;
-
-  const licenseRegex = new RegExp(license, 'i');
-
-  return license + ',' + getAllCorrectLicenses(licenseRegex);
+/**
+ * Tests if the license argument is equal to or matches the expression argument
+ *
+ * @param {string} license - License to check
+ * @param {string|RegExp} expression - The expression the license will be tested against
+ * @returns {boolean} - Result of the test
+ */
+const licenseMatchesExpression = (license, expression) => {
+  if (expression instanceof RegExp) return expression.test(license);
+  return license === expression;
 };
 
 /**
- * Check if all licenses insert by user are correct,
- * those who aren't will be tested and when a matching
- * license is found it will be added in the string.
+ * Extracts the invalid packages according to the provided list of licenses
  *
- * @param  {object} argv - arguments
- *
- * @returns arguments
+ * @param {(string|RegExp)[]} failOnArgs - List of arguments to parse
+ * @param {object[]} packages - List of packages
+ * @returns {object[]} - List of invalid packages
  */
-const checkIfLicensesAreCorrect = (argv) =>
-  argv.failOn.split(',').map(transformLicense).join(',');
+const extractInvalidPackages = (failOnArgs, packages) => packages
+  .filter(({ licenses }) => failOnArgs.some(arg => licenseMatchesExpression(licenses, arg)));
 
 module.exports = {
   getPackageInfoList,
   writeReportFile,
-  checkIfLicensesAreCorrect
+  extractInvalidPackages,
+  parseFailOnArgs
 };
