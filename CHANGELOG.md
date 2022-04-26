@@ -30,10 +30,6 @@ All notable changes to this project will be documented in this file. See [standa
 * fix changelog date ([cc9635c](https://github.com/guidesmiths/license-checker/commit/cc9635c0ab530e92fdc9207d97de93e1578058ce))
 * ignore .idea folder ([bb69604](https://github.com/guidesmiths/license-checker/commit/bb696041ea2d6d653179a635608a46bd69d944ff))
 * improve PR template ([6830956](https://github.com/guidesmiths/license-checker/commit/6830956c531948d1f2361c5eda278d64c780bcac))
-* **release:** 1.3.0 ([67ca413](https://github.com/guidesmiths/license-checker/commit/67ca413002715792859fe319bc6900763ac6cfcf))
-* **release:** 1.3.0 ([3e38944](https://github.com/guidesmiths/license-checker/commit/3e389440cdb8fb7b1197793982e6cecc2649e32a))
-* **release:** 1.4.0 ([65d7af7](https://github.com/guidesmiths/license-checker/commit/65d7af7db6706258f8825bbcdfad3ad6681e626d))
-* **release:** 2.0.0 ([71afed9](https://github.com/guidesmiths/license-checker/commit/71afed944eccef17ae45aa192d4ed9e0d5fb4773))
 
 
 ### 🎨 Styling
