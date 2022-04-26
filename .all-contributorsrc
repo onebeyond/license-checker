@@ -52,6 +52,47 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "dustytrinkets",
+      "name": "Laura",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18383417?v=4",
+      "profile": "https://github.com/dustytrinkets",
+      "contributions": [
+        "review"
+      ]
+    },
+    {
+      "login": "ardguezsoc",
+      "name": "Adri Rodríguez ",
+      "avatar_url": "https://avatars.githubusercontent.com/u/79102959?v=4",
+      "profile": "https://github.com/ardguezsoc",
+      "contributions": [
+        "review"
+      ]
+    },
+    {
+      "login": "neodmy",
+      "name": "David Miguel Yusta",
+      "avatar_url": "https://avatars.githubusercontent.com/u/36865163?v=4",
+      "profile": "https://github.com/neodmy",
+      "contributions": [
+        "code",
+        "doc",
+        "ideas",
+        "maintenance",
+        "review",
+        "test"
+      ]
+    },
+    {
+      "login": "lcruz45",
+      "name": "Lucía",
+      "avatar_url": "https://avatars.githubusercontent.com/u/91122266?v=4",
+      "profile": "https://github.com/lcruz45",
+      "contributions": [
+        "design"
+      ]
     }
   ],
   "contributorsPerLine": 7,
