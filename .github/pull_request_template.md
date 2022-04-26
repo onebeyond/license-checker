@@ -1,18 +1,20 @@
 ### Main changes
 
-- :new: (feature)
-- :top: (enhancement)
-- :bug: (bug solved)
-- :bulb: (idea)
-- :art: (design, UI/UX)
+- :bug: (fix)
+- :new: (feat)
+- :wrench: (chore)
+- :cloud: (ci)
+- :memo: (docs)
+- :art: (style)
 - :arrows_counterclockwise: (refactor)
-- :recycle: (remove)
-- :microscope: (testing)
+- :chart_with_upwards_trend: (perf)
+- :microscope: (test)
+- :bangbang: (breaking change)
 
-### Other changes
+### Additional notes
 
+(optional)
 
 ### Context
 
 - :ticket: Closes / Relates _ticket number_
-
