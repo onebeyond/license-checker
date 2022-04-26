@@ -1,6 +1,6 @@
 {
   "name": "@guidesmiths/license-checker",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "License checker for GuideSmiths projects",
   "main": "index.js",
   "bin": {
