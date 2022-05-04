@@ -86,7 +86,7 @@ const writeReportFile = (outputFileName, packageList, customHeaderFileName) => {
  */
 const parseFailOnArgs = args => args.reduce((total, arg) => {
   try {
-    const pattern = /^\/(?<pattern>.+)\/$/.exec(arg)?.groups?.pattern;
+    const pattern = (/^\/(?<pattern>.+)\/$/.exec(arg) || { groups: {} }).groups.pattern;
     return { ...total, valid: [...total.valid, pattern ? new RegExp(pattern) : arg] };
   } catch (e) {
     return { ...total, invalid: [...total.invalid, arg] };
