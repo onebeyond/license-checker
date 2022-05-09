@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.1](https://github.com/guidesmiths/license-checker/compare/v2.0.0...v2.0.1) (2022-05-09)
+
+
+### 🔄 Code Refactoring
+
+* make regex function compatible with node versions prior to v14 ([262e06e](https://github.com/guidesmiths/license-checker/commit/262e06eee46d54240523bcc97b3b0f86798d37d0))
+
+
+### 🔧 Others
+
+* update package description ([c3e24a6](https://github.com/guidesmiths/license-checker/commit/c3e24a6edeeb2f0b07bb72eccf0e7b7da100e788))
+
 ## [2.0.0](https://github.com/guidesmiths/license-checker/compare/v1.3.0...v2.0.0) (2022-04-26)
 
 
