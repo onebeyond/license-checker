@@ -1,7 +1,7 @@
 {
   "name": "@guidesmiths/license-checker",
   "version": "2.0.0",
-  "description": "License checker for GuideSmiths projects",
+  "description": "Audit your NPM dependencies and reject any forbidden license.",
   "main": "index.js",
   "bin": {
     "license-checker": "./index.js"
