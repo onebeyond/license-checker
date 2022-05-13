@@ -31,8 +31,15 @@ You can optionally add options to exclude generating the report or avoid generat
 ```
 npx @guidesmiths/license-checker --failOn license1 license2
 ```
+- If you are using **yarn** you may want to run it from the node modules instead of using npx
+
+```
+node_modules/.bin/license-checker --failOn /licenseRegex/
+```
 
 - Use the script wherever you want (husky hook, in your CI/CD pipeline, ...)
+ 
+
 
 ## <a name="options"></a>Options
 
