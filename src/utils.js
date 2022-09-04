@@ -115,9 +115,32 @@ const licenseMatchesExpression = (license, expression) => {
 const extractInvalidPackages = (failOnArgs, packages) => packages
   .filter(({ licenses }) => failOnArgs.some(arg => licenseMatchesExpression(licenses, arg)));
 
+/**
+ * Format the forbidden licenses identified in a multiline string
+ *
+ * @param {object[]} licenses - List of licenses identified
+ * @returns {string} - A string with the number and list of forbidden licenses identified
+ */
+const formatForbiddenLicenseError = licenses => {
+  const forbiddenLicenseStats = licenses
+    .reduce((stats, { licenses }) => ({
+      ...stats,
+      [licenses]: !stats[licenses] ? 1 : stats[licenses] + 1
+    }), {});
+
+  const header = `Found ${licenses.length} packages with licenses defined by the --failOn flag:`;
+  const lines = Object
+    .entries(forbiddenLicenseStats)
+    .map(([license, value]) => ` > ${value} packages with license ${license}`)
+    .join('\n');
+
+  return `${header}\n${lines}`;
+};
+
 module.exports = {
   getPackageInfoList,
   writeReportFile,
   extractInvalidPackages,
-  parseFailOnArgs
+  parseFailOnArgs,
+  formatForbiddenLicenseError
 };
