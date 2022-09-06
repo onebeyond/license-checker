@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/guidesmiths/license-checker/compare/v2.0.1...v2.1.0) (2022-09-06)
+
+
+### 🆕 Features
+
+* add middlewares ([37d32ca](https://github.com/guidesmiths/license-checker/commit/37d32caafbe978466026b31bd3e7bbe0a7fc8be2))
+* add runner ([21d3e3c](https://github.com/guidesmiths/license-checker/commit/21d3e3c26af293581b27f0725e6523008d3dd629))
+* wrap license-check in promise ([2d8a5b6](https://github.com/guidesmiths/license-checker/commit/2d8a5b620ae1bb135bb90db84553a9690b67d638))
+
+
+### 🔄 Code Refactoring
+
+* simplify entry point ([84dceef](https://github.com/guidesmiths/license-checker/commit/84dceefcf5a996618f6ec0c77e6d10319cbd5d54))
+* simplify runner and move function to utils ([c966d89](https://github.com/guidesmiths/license-checker/commit/c966d893d7f26c4ad8986a2d95c460d57c750f3d))
+
+
+### 🐛 Bug Fixes
+
+* amend file generation on no arguments ([297b954](https://github.com/guidesmiths/license-checker/commit/297b9543fabc1adf5d252223643a450d070c17ab))
+
 ### [2.0.1](https://github.com/guidesmiths/license-checker/compare/v2.0.0...v2.0.1) (2022-05-09)
 
 
