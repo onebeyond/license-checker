@@ -14,8 +14,10 @@ const run = async (checker, args) => {
   }
 
   const packagesIncludeLicenses = packageList.some(p => args.generateOutputOn.includes(p.licenses));
-  if (!args.disableReport && packagesIncludeLicenses) {
-    writeReportFile(args.outputFileName, packageList, args.customHeader);
+  if (!args.generateOutputOn.length || packagesIncludeLicenses) {
+    if (!args.disableReport) {
+      writeReportFile(args.outputFileName, packageList, args.customHeader);
+    }
   }
 };
 
