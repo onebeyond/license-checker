@@ -41,7 +41,7 @@
     "lint:fix": "eslint --fix --ext .js .",
     "test": "jest"
   },
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/guidesmiths/license-checker/issues"
   },
