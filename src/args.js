@@ -50,7 +50,7 @@ module.exports = yargs
     type: 'string'
   })
   .option('checkLicense', {
-    description: 'check if a license is SPDX compliant. It is intended to be used as a standalone command to check if a specific license is in SPDX compliance',
+    description: 'check if a license is SPDX compliant. It is intended to be used as a standalone command. More info at https://spdx.org/licenses/',
     type: 'string',
     default: false
   })
