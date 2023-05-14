@@ -22,45 +22,6 @@ const getPackageInfoList = packages => Object.entries(packages)
   });
 
 /**
- * Parses failOn arguments distinguishing between plain string and
- * regex like strings
- *
- * @param {string[]} args - List of arguments to parse
- * @returns {{invalid: (string|RegExp)[], valid: (string|RegExp)[]}} - List of valid
- * and invalid parsed arguments. The invalid object will include unsuccessful parsed regex
- */
-const parseFailOnArgs = args => args.reduce((total, arg) => {
-  try {
-    const pattern = (/^\/(?<pattern>.+)\/$/.exec(arg) || { groups: {} }).groups.pattern;
-    return { ...total, valid: [...total.valid, pattern ? new RegExp(pattern) : arg] };
-  } catch (e) {
-    return { ...total, invalid: [...total.invalid, arg] };
-  }
-}, { valid: [], invalid: [] });
-
-/**
- * Tests if the license argument is equal to or matches the expression argument
- *
- * @param {string} license - License to check
- * @param {string|RegExp} expression - The expression the license will be tested against
- * @returns {boolean} - Result of the test
- */
-const licenseMatchesExpression = (license, expression) => {
-  if (expression instanceof RegExp) return expression.test(license);
-  return license === expression;
-};
-
-/**
- * Extracts the invalid packages according to the provided list of licenses
- *
- * @param {(string|RegExp)[]} failOnArgs - List of arguments to parse
- * @param {object[]} packages - List of packages
- * @returns {object[]} - List of invalid packages
- */
-const extractInvalidPackages = (failOnArgs, packages) => packages
-  .filter(({ licenses }) => failOnArgs.some(arg => licenseMatchesExpression(licenses, arg)));
-
-/**
  * Format the forbidden licenses identified in a multiline string
  *
  * @param {object[]} licenses - List of licenses identified
@@ -84,7 +45,5 @@ const formatForbiddenLicenseError = licenses => {
 
 module.exports = {
   getPackageInfoList,
-  extractInvalidPackages,
-  parseFailOnArgs,
   formatForbiddenLicenseError
 };
