@@ -5,11 +5,14 @@ const {
   getPackageInfoList, formatForbiddenLicenseError
 } = require('./utils');
 
-const checkLicenseArgument = arg => {
-  if (arg && !isSPDXCompliant(arg)) {
-    throw new Error(`The argument "${arg}" is not SPDX compliant. Please, use the --checkLicense option to validate your input`);
+const checkLicenseArgument = (args = []) => {
+  const invalidLicenses = args.filter(arg => !isSPDXCompliant(arg));
+  if (invalidLicenses.length) {
+    throw new Error(`The following licenses are not SPDX compliant. Please, use the --checkLicense option to validate your input:\n${invalidLicenses.join(' | ')}`);
   }
 };
+
+const generateSPDXExpression = (args = []) => args.join(' OR ');
 
 const checkPackagesLicenses = (inputLicenses, packages) => packages.reduce((total, pkg) => {
   const { licenses } = pkg;
@@ -28,9 +31,11 @@ const run = async (checker, reporter, args) => {
     return;
   }
 
-  const { failOn: bannedLicenses, generateOutputOn: generateOutputOnLicenses } = args;
-  checkLicenseArgument(bannedLicenses);
-  checkLicenseArgument(generateOutputOnLicenses);
+  const { failOn, generateOutputOn } = args;
+  checkLicenseArgument(failOn);
+  checkLicenseArgument(generateOutputOn);
+  const bannedLicenses = generateSPDXExpression(failOn);
+  const generateOutputOnLicenses = generateSPDXExpression(generateOutputOn);
 
   const packages = await checker.parsePackages(args.start);
 
