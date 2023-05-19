@@ -28,7 +28,7 @@ npm install @guidesmiths/license-checker
 
 - Add a script to run the package
 
-```sg
+```sh
 npx @guidesmiths/license-checker --failOn license
 ```
 - If you are using **yarn** you may want to run it from the node modules instead of using npx
