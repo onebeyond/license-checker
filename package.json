@@ -13,20 +13,6 @@
   "keywords": [
     "license"
   ],
-  "contributors": [
-    {
-      "name": "Jose Manuel Torralvo",
-      "email": "jm.torralvo@guidemisths.com"
-    },
-    {
-      "name": "Íñigo Marquínez Prado",
-      "email": "inigo.marquinez@guidemisths.com"
-    },
-    {
-      "name": "Mario Quiroga",
-      "email": "mario.quiroga@guidemisths.com"
-    }
-  ],
   "scripts": {
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate",
