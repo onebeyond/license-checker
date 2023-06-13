@@ -1,0 +1,56 @@
+name: release and publish
+
+on:
+  push:
+    branches:
+      - main
+
+permissions: {}
+
+jobs:
+  release-please:
+    permissions:
+      contents: write # to create release commit
+      pull-requests: write # to create release PR
+
+    runs-on: ubuntu-latest
+
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+
+    steps:
+      - name: Create or update release
+        uses: google-github-actions/release-please-action@v3
+        id: release
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          release-type: node
+          package-name: '@onebeyond/license-checker'
+          changelog-types: '[{ "type": "feat", "section": "🆕 Features", "hidden": false },{ "type": "fix", "section": "🐛 Bug Fixes", "hidden": false },{ "type": "chore", "section": "🔧 Others", "hidden": false },{ "type": "docs", "section": "📝 Docs", "hidden": false },{ "type": "style", "section": "🎨 Styling", "hidden": false },{ "type": "refactor", "section": "🔄 Code Refactoring", "hidden": false },{ "type": "perf", "section": "📈 Performance Improvements", "hidden": false },{ "type": "test", "section": "🔬 Tests", "hidden": false },{ "type": "ci", "section": "☁️ CI", "hidden": false }]'
+          release-as: '1.0.0'
+
+  npm-publish:
+    runs-on: ubuntu-latest
+
+    needs: [release-please]
+
+    # this if statements ensure that a publication only occurs when a new release is created:
+    if: ${{ needs.release-please.outputs.release_created }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm ci --production
+
+      - name: Publish to npm
+        run: npm publish --ignore-scripts --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_GUIDESMITHS }}
