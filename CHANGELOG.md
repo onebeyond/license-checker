@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/onebeyond/license-checker/compare/v2.1.0...v1.0.0) (2023-06-13)
+
+
+### 🆕 Features
+
+* add command to check if license is SPDX compliant ([f07cfd2](https://github.com/onebeyond/license-checker/commit/f07cfd212aa9c8741bb338143ceef1232f1311e1))
+
+
+### 🔄 Code Refactoring
+
+* add link in command description and error ([cd33b5c](https://github.com/onebeyond/license-checker/commit/cd33b5c4d6b4c322c1d8a0b843869faab9d25b89))
+* create file reporter and use different headers per file type ([4e049e3](https://github.com/onebeyond/license-checker/commit/4e049e3dbe6606d8dd40a86a77d75d1cc59792e8))
+
+
+### 📝 Docs
+
+* added license file ([98f82a4](https://github.com/onebeyond/license-checker/commit/98f82a4c6a51090b16771550150cde89fddfdedc))
+* document new option ([d01d7b6](https://github.com/onebeyond/license-checker/commit/d01d7b6487ecc75f29aeea4a28936303082edb29))
+* update license reference to MIT ([c02dc91](https://github.com/onebeyond/license-checker/commit/c02dc913a2278ab4d5504a3a74cf7ef11cbfa914))
+
+
+### ☁️ CI
+
+* add semantic-pull-request and release-and-publish gh actions ([#67](https://github.com/onebeyond/license-checker/issues/67)) ([db04785](https://github.com/onebeyond/license-checker/commit/db04785dc93d0dbfa3f5ba35fb4dd9e9c8a6989c))
+
 ## [2.1.0](https://github.com/guidesmiths/license-checker/compare/v2.0.1...v2.1.0) (2022-09-06)
 
 
