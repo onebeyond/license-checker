@@ -51,6 +51,7 @@ jobs:
         run: npm ci --production
 
       - name: Publish to npm
-        run: npm publish --ignore-scripts --access public
+        run: |
+          npm publish --provenance --ignore-scripts --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_GUIDESMITHS }}
