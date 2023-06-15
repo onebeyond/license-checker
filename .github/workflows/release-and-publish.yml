@@ -27,7 +27,9 @@ jobs:
           release-type: node
           package-name: '@onebeyond/license-checker'
           changelog-types: '[{ "type": "feat", "section": "🆕 Features", "hidden": false },{ "type": "fix", "section": "🐛 Bug Fixes", "hidden": false },{ "type": "chore", "section": "🔧 Others", "hidden": false },{ "type": "docs", "section": "📝 Docs", "hidden": false },{ "type": "style", "section": "🎨 Styling", "hidden": false },{ "type": "refactor", "section": "🔄 Code Refactoring", "hidden": false },{ "type": "perf", "section": "📈 Performance Improvements", "hidden": false },{ "type": "test", "section": "🔬 Tests", "hidden": false },{ "type": "ci", "section": "☁️ CI", "hidden": false }]'
-          release-as: '1.0.0'
+          monorepo-tags: 'true' # we need to include this to avoid having duplicated releases with the old version
+          release-as: '1.0.0' # remove this once the first version is released
+          bootstrap-sha: '4e049e3dbe6606d8dd40a86a77d75d1cc59792e8' # remove this once the first version is released
 
   npm-publish:
     runs-on: ubuntu-latest
