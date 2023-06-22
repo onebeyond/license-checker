@@ -94,12 +94,12 @@ const checkLicenseError = (licenses = []) => {
 const isLicenseError = (license = '') => licensesExceptions.includes(license);
 
 /**
- * Checks the SPDX expression against the list of packages. If the license of the package itself is not SPDX compliant, the package will
- * be included on the "nonCompliant" list. If the SPDX expression satisfies the package license, the package will be included on the
- * "satisfied" list
+ * Subtracts the expression from the full list of SPDX ids and check the result (the allowed licenses) against the list of packages.
+ * If the license of the package itself is not SPDX compliant, the package will be included on the "nonCompliant" list.
+ * If a package license does not satisfy the allowed SPDX id list, the package will be included on the "forbidden" list.
  * @param {string} expression - A SPDX expression
  * @param {object[]} packages - A list of packages to be checked against the SPDX expression
- * @return {{satisfied: object[], nonCompliant: object[]}} - A couple of lists including the packages that satisfy the SPDX expression
+ * @return {{forbidden: object[], nonCompliant: object[]}} - A couple of lists including the packages that satisfy the SPDX expression
  * and the packages with a non SPDX compliant license
  */
 const checkPackagesLicenses = (expression, packages) => {
