@@ -54,6 +54,21 @@ describe('Runner', () => {
 
       expect(checker.parsePackages).not.toHaveBeenCalled();
     });
+
+    it('should throw an error if the arguments contains one of the licenses affected by the spdx-satisfies module', async () => {
+      const args = {
+        checkLicense: 'GFDL-1.1-invariants-or-later'
+      };
+
+      let error;
+      try {
+        await runner.run(checker, reporter, args);
+      } catch (e) {
+        error = e;
+      } finally {
+        expect(error.message).toMatch('GFDL-1.x licenses are temporary unallowed. There\'s an issue pending to solve.');
+      }
+    });
   });
 
   describe('Check arguments', () => {
@@ -84,6 +99,21 @@ describe('Runner', () => {
         error = e;
       } finally {
         expect(error.message).toBe('The following licenses are not SPDX compliant. Please, use the --checkLicense option to validate your input:\nGPL | BSD');
+      }
+    });
+
+    it('should return an error if any of the licenses provided to the "failOn" argument are affected by the temporal issue', async () => {
+      const args = {
+        failOn: ['MIT', 'GPL', 'GFDL-1.1-invariants-or-later']
+      };
+
+      let error;
+      try {
+        await runner.run(checker, reporter, args);
+      } catch (e) {
+        error = e;
+      } finally {
+        expect(error.message).toBe("Your failOn list contains a GFDL-1.x licenses and they are temporary unallowed. There's an issue pending to solve.");
       }
     });
   });
@@ -158,6 +188,84 @@ describe('Runner', () => {
         expect(error.message).toBe('Found 1 packages with licenses defined by the --failOn flag:\n > 1 packages with license MIT');
       }
     });
+
+    it('should not throw an error if one of the licences in a package joined by the operator OR contains one of the licences in the failOn arguments', async () => {
+      const args = {
+        start: '/path/to/cwd',
+        failOn: ['MIT', 'GPL-1.0+']
+      };
+      const packages = {
+        'package-1': {
+          licenses: 'MIT OR Apache-2.0',
+          repository: 'https://git.com/repo/repo',
+          path: '/path/to/package',
+          licenseFile: '/path/to/package/LICENSE'
+        }
+      };
+
+      let error;
+
+      checker.parsePackages.mockResolvedValueOnce(packages);
+      try {
+        await runner.run(checker, reporter, args);
+      } catch (err) {
+        error = err;
+      } finally {
+        expect(error).toBeUndefined();
+      }
+    });
+
+    it('should not throw an error if one of the licences in a package joined by the operator AND does not contain any licences in the failOn arguments', async () => {
+      const args = {
+        start: '/path/to/cwd',
+        failOn: ['GPL-1.0+']
+      };
+      const packages = {
+        'package-1': {
+          licenses: 'MIT AND Apache-2.0',
+          repository: 'https://git.com/repo/repo',
+          path: '/path/to/package',
+          licenseFile: '/path/to/package/LICENSE'
+        }
+      };
+
+      checker.parsePackages.mockResolvedValueOnce(packages);
+
+      let error;
+      try {
+        await runner.run(checker, reporter, args);
+      } catch (err) {
+        error = err;
+      } finally {
+        expect(error).toBeUndefined();
+      }
+    });
+
+    it('should throw an error if any packages\' licenses joined by the AND operator satisfies the "failOn" argument', async () => {
+      const args = {
+        start: '/path/to/cwd',
+        failOn: ['GPL-1.0+', 'MIT']
+      };
+      const packages = {
+        'package-1': {
+          licenses: 'MIT AND Apache-2.0',
+          repository: 'https://git.com/repo/repo',
+          path: '/path/to/package',
+          licenseFile: '/path/to/package/LICENSE'
+        }
+      };
+
+      checker.parsePackages.mockResolvedValueOnce(packages);
+
+      let error;
+      try {
+        await runner.run(checker, reporter, args);
+      } catch (err) {
+        error = err;
+      } finally {
+        expect(error.message).toBe('Found 1 packages with licenses defined by the --failOn flag:\n > 1 packages with license MIT AND Apache-2.0');
+      }
+    });
   });
 
   describe('Error report file', () => {
@@ -168,7 +276,7 @@ describe('Runner', () => {
       };
       const packages = {
         'package-1': {
-          licenses: 'GPL-1.0',
+          licenses: 'GPL-1.0-only',
           repository: 'https://git.com/repo/repo',
           path: '/path/to/package',
           licenseFile: '/path/to/package/LICENSE'
