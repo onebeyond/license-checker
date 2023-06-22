@@ -1,5 +1,9 @@
 const isSPDXCompliant = require('spdx-expression-validate');
 const satisfiesSPDXLicense = require('spdx-satisfies');
+const spdxIds = require('spdx-license-ids');
+
+// @TODO Remove after issue has been solved
+const licensesExceptions = ['GFDL-1.1-no-invariants-or-later', 'GFDL-1.1-invariants-or-later', 'GFDL-1.2-invariants-or-later', 'GFDL-1.2-no-invariants-or-later', 'GFDL-1.3-invariants-or-later', 'GFDL-1.3-no-invariants-or-later'];
 
 /**
  * Generate objects with information on each package that we want to include
@@ -67,6 +71,28 @@ const checkSPDXCompliance = (licenses = []) => {
   }
 };
 
+// @TODO Remove after issue has been solved
+/**
+ * Throws an error inf any the input licenses is a license affected by the spdx-satisfies issue.
+ * @param licenses - List of SPDX licenses
+ */
+const checkLicenseError = (licenses = []) => {
+  const errorLicenses = licenses.some(isLicenseError);
+  if (errorLicenses) {
+    throw new Error(
+      'Your failOn list contains a GFDL-1.x licenses and they are temporary unallowed. There\'s an issue pending to solve.'
+    );
+  }
+};
+
+// @TODO Remove after issue has been solved
+/**
+ * This is a temporal fix until an issue in spdx-satisfies package has been solved. The package itself throws an error if a GFDL license is used in the check: https://github.com/jslicense/spdx-satisfies.js/issues/15
+ * @param {string} license - A SPDX license
+ * @return {boolean}
+ */
+const isLicenseError = (license = '') => licensesExceptions.includes(license);
+
 /**
  * Checks the SPDX expression against the list of packages. If the license of the package itself is not SPDX compliant, the package will
  * be included on the "nonCompliant" list. If the SPDX expression satisfies the package license, the package will be included on the
@@ -76,17 +102,28 @@ const checkSPDXCompliance = (licenses = []) => {
  * @return {{satisfied: object[], nonCompliant: object[]}} - A couple of lists including the packages that satisfy the SPDX expression
  * and the packages with a non SPDX compliant license
  */
-const checkPackagesLicenses = (expression, packages) => packages.reduce((total, pkg) => {
-  const { licenses } = pkg;
-  if (!isSPDXCompliant(licenses)) return { ...total, nonCompliant: [...total.nonCompliant, pkg] };
-  if (expression && satisfiesSPDXLicense(expression, licenses)) return { ...total, satisfied: [...total.satisfied, pkg] };
-  return total;
-}, { satisfied: [], nonCompliant: [] });
+const checkPackagesLicenses = (expression, packages) => {
+  const validSpdxIds = expression && spdxIds.filter(id => !isLicenseError(id) && !satisfiesSPDXLicense(id, expression)); // @TODO Refactor after issue has been solved
+  const allowedLicensesExp = expression && generateSPDXExpression(validSpdxIds);
+
+  return packages.reduce((total, pkg) => {
+    const { licenses } = pkg;
+
+    if (!isSPDXCompliant(licenses)) return { ...total, nonCompliant: [...total.nonCompliant, pkg] };
+
+    const isSatisfiedLicense = expression && !satisfiesSPDXLicense(licenses, allowedLicensesExp);
+    if (isSatisfiedLicense) return { ...total, forbidden: [...total.forbidden, pkg] };
+
+    return total;
+  }, { forbidden: [], nonCompliant: [] });
+};
 
 module.exports = {
   getPackageInfoList,
   formatForbiddenLicenseError,
   generateSPDXExpression,
   checkSPDXCompliance,
-  checkPackagesLicenses
+  checkPackagesLicenses,
+  isLicenseError,
+  checkLicenseError
 };
