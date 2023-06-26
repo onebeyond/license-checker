@@ -38,6 +38,8 @@
     "license-checker": "25.0.1",
     "lodash": "4.17.21",
     "spdx-expression-validate": "^2.0.0",
+    "spdx-license-ids": "^3.0.13",
+    "spdx-satisfies": "^5.0.1",
     "yargs": "17.7.2"
   },
   "devDependencies": {
