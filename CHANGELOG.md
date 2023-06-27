@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.1](https://github.com/onebeyond/license-checker/compare/license-checker-v1.0.0...license-checker-v1.0.1) (2023-06-27)
+
+
+### ☁️ CI
+
+* remove hardcoded version value in the release-please gh action ([#75](https://github.com/onebeyond/license-checker/issues/75)) ([cdf31cd](https://github.com/onebeyond/license-checker/commit/cdf31cddf4fb03464b6a9cf888d3db0b05a73953))
+
+
+### 🐛 Bug Fixes
+
+* metadata references ([#77](https://github.com/onebeyond/license-checker/issues/77)) ([6aa61fa](https://github.com/onebeyond/license-checker/commit/6aa61fa214fe88ddcb095e3090c0fbd260cf066e))
+* npm provenance ([#78](https://github.com/onebeyond/license-checker/issues/78)) ([47d4877](https://github.com/onebeyond/license-checker/commit/47d48775cb7b7e76d53be901469f61aa39eb0810))
+
+
+### 📝 Docs
+
+* add nanotower as a contributor for code ([#81](https://github.com/onebeyond/license-checker/issues/81)) ([fb0459c](https://github.com/onebeyond/license-checker/commit/fb0459cece2e94235bb5484a756f216dbc72779f))
+* add UlisesGascon as a contributor for code, doc, and maintenance ([#79](https://github.com/onebeyond/license-checker/issues/79)) ([d304906](https://github.com/onebeyond/license-checker/commit/d304906ec436882a7c5e63adb5e855bee08ab541))
+
 ## 1.0.0 (2023-06-26)
 
 
