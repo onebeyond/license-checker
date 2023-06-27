@@ -10,7 +10,7 @@
 
 🕵️ Audit your NPM dependencies and reject any forbidden license.
 
-Check our [wiki](https://github.com/guidesmiths/license-checker/wiki)!
+Check our [wiki](https://github.com/onebeyond/license-checker/wiki)!
 
 ## Description
 
@@ -23,13 +23,13 @@ You can optionally add options to exclude generating the report or avoid generat
 - Install the package
 
 ```sh
-npm install @guidesmiths/license-checker
+npm install @onebeyond/license-checker
 ```
 
 - Add a script to run the package
 
 ```sh
-npx @guidesmiths/license-checker --failOn license
+npx @onebeyond/license-checker --failOn license
 ```
 - If you are using **yarn** you may want to run it from the node modules instead of using npx
 
@@ -63,7 +63,7 @@ meaning that if present, the scanning process will not be triggered. It is usefu
 `generateOutputOn` options:
 
 ```sh
-npx @guidesmiths/license-checker --checkLicense "(MIT OR GPL-1.0+) AND 0BSD"
+npx @onebeyond/license-checker --checkLicense "(MIT OR GPL-1.0+) AND 0BSD"
 ```
 
 If the value provided is not SPDX compliant, the process fails (exit error 1).
@@ -73,7 +73,7 @@ All the values provided in the list must be [SPDX](https://spdx.dev/specificatio
 Check the [SPDX license list](https://spdx.org/licenses/)
 
 ```sh
-npx @guidesmiths/license-checker --failOn MIT GPL-1.0+
+npx @onebeyond/license-checker --failOn MIT GPL-1.0+
 ```
 
 The input list is transformed into a SPDX expression with the `OR` logical operator. In the example, that is `MIT OR GPL-1.0+`.
@@ -101,13 +101,13 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/jmtorralvo"><img src="https://avatars.githubusercontent.com/u/6839860?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jose Manuel Torralvo Moyano</b></sub></a><br /><a href="https://github.com/guidesmiths/license-checker/commits?author=jmtorralvo" title="Code">💻</a> <a href="https://github.com/guidesmiths/license-checker/commits?author=jmtorralvo" title="Documentation">📖</a> <a href="#ideas-jmtorralvo" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-jmtorralvo" title="Maintenance">🚧</a> <a href="https://github.com/guidesmiths/license-checker/pulls?q=is%3Apr+reviewed-by%3Ajmtorralvo" title="Reviewed Pull Requests">👀</a></td>
-    <td align="center"><a href="https://github.com/MarioQuiroga32"><img src="https://avatars.githubusercontent.com/u/43605474?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mario Quiroga</b></sub></a><br /><a href="https://github.com/guidesmiths/license-checker/commits?author=MarioQuiroga32" title="Code">💻</a> <a href="https://github.com/guidesmiths/license-checker/commits?author=MarioQuiroga32" title="Documentation">📖</a> <a href="#ideas-MarioQuiroga32" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-MarioQuiroga32" title="Maintenance">🚧</a> <a href="https://github.com/guidesmiths/license-checker/pulls?q=is%3Apr+reviewed-by%3AMarioQuiroga32" title="Reviewed Pull Requests">👀</a></td>
-    <td align="center"><a href="https://github.com/inigomarquinez"><img src="https://avatars.githubusercontent.com/u/25435858?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Íñigo Marquínez</b></sub></a><br /><a href="https://github.com/guidesmiths/license-checker/commits?author=inigomarquinez" title="Code">💻</a> <a href="https://github.com/guidesmiths/license-checker/commits?author=inigomarquinez" title="Documentation">📖</a> <a href="#ideas-inigomarquinez" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-inigomarquinez" title="Maintenance">🚧</a> <a href="https://github.com/guidesmiths/license-checker/pulls?q=is%3Apr+reviewed-by%3Ainigomarquinez" title="Reviewed Pull Requests">👀</a></td>
-    <td align="center"><a href="https://github.com/LonelyPrincess"><img src="https://avatars.githubusercontent.com/u/17673317?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sara Hernández</b></sub></a><br /><a href="https://github.com/guidesmiths/license-checker/commits?author=LonelyPrincess" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/dustytrinkets"><img src="https://avatars.githubusercontent.com/u/18383417?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Laura</b></sub></a><br /><a href="https://github.com/guidesmiths/license-checker/pulls?q=is%3Apr+reviewed-by%3Adustytrinkets" title="Reviewed Pull Requests">👀</a></td>
-    <td align="center"><a href="https://github.com/ardguezsoc"><img src="https://avatars.githubusercontent.com/u/79102959?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Adri Rodríguez </b></sub></a><br /><a href="https://github.com/guidesmiths/license-checker/pulls?q=is%3Apr+reviewed-by%3Aardguezsoc" title="Reviewed Pull Requests">👀</a></td>
-    <td align="center"><a href="https://github.com/neodmy"><img src="https://avatars.githubusercontent.com/u/36865163?v=4?s=100" width="100px;" alt=""/><br /><sub><b>David Miguel Yusta</b></sub></a><br /><a href="https://github.com/guidesmiths/license-checker/commits?author=neodmy" title="Code">💻</a> <a href="https://github.com/guidesmiths/license-checker/commits?author=neodmy" title="Documentation">📖</a> <a href="#ideas-neodmy" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-neodmy" title="Maintenance">🚧</a> <a href="https://github.com/guidesmiths/license-checker/pulls?q=is%3Apr+reviewed-by%3Aneodmy" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/guidesmiths/license-checker/commits?author=neodmy" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/jmtorralvo"><img src="https://avatars.githubusercontent.com/u/6839860?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jose Manuel Torralvo Moyano</b></sub></a><br /><a href="https://github.com/onebeyond/license-checker/commits?author=jmtorralvo" title="Code">💻</a> <a href="https://github.com/onebeyond/license-checker/commits?author=jmtorralvo" title="Documentation">📖</a> <a href="#ideas-jmtorralvo" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-jmtorralvo" title="Maintenance">🚧</a> <a href="https://github.com/onebeyond/license-checker/pulls?q=is%3Apr+reviewed-by%3Ajmtorralvo" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="https://github.com/MarioQuiroga32"><img src="https://avatars.githubusercontent.com/u/43605474?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mario Quiroga</b></sub></a><br /><a href="https://github.com/onebeyond/license-checker/commits?author=MarioQuiroga32" title="Code">💻</a> <a href="https://github.com/onebeyond/license-checker/commits?author=MarioQuiroga32" title="Documentation">📖</a> <a href="#ideas-MarioQuiroga32" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-MarioQuiroga32" title="Maintenance">🚧</a> <a href="https://github.com/onebeyond/license-checker/pulls?q=is%3Apr+reviewed-by%3AMarioQuiroga32" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="https://github.com/inigomarquinez"><img src="https://avatars.githubusercontent.com/u/25435858?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Íñigo Marquínez</b></sub></a><br /><a href="https://github.com/onebeyond/license-checker/commits?author=inigomarquinez" title="Code">💻</a> <a href="https://github.com/onebeyond/license-checker/commits?author=inigomarquinez" title="Documentation">📖</a> <a href="#ideas-inigomarquinez" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-inigomarquinez" title="Maintenance">🚧</a> <a href="https://github.com/onebeyond/license-checker/pulls?q=is%3Apr+reviewed-by%3Ainigomarquinez" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="https://github.com/LonelyPrincess"><img src="https://avatars.githubusercontent.com/u/17673317?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sara Hernández</b></sub></a><br /><a href="https://github.com/onebeyond/license-checker/commits?author=LonelyPrincess" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/dustytrinkets"><img src="https://avatars.githubusercontent.com/u/18383417?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Laura</b></sub></a><br /><a href="https://github.com/onebeyond/license-checker/pulls?q=is%3Apr+reviewed-by%3Adustytrinkets" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="https://github.com/ardguezsoc"><img src="https://avatars.githubusercontent.com/u/79102959?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Adri Rodríguez </b></sub></a><br /><a href="https://github.com/onebeyond/license-checker/pulls?q=is%3Apr+reviewed-by%3Aardguezsoc" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="https://github.com/neodmy"><img src="https://avatars.githubusercontent.com/u/36865163?v=4?s=100" width="100px;" alt=""/><br /><sub><b>David Miguel Yusta</b></sub></a><br /><a href="https://github.com/onebeyond/license-checker/commits?author=neodmy" title="Code">💻</a> <a href="https://github.com/onebeyond/license-checker/commits?author=neodmy" title="Documentation">📖</a> <a href="#ideas-neodmy" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-neodmy" title="Maintenance">🚧</a> <a href="https://github.com/onebeyond/license-checker/pulls?q=is%3Apr+reviewed-by%3Aneodmy" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/onebeyond/license-checker/commits?author=neodmy" title="Tests">⚠️</a></td>
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/lcruz45"><img src="https://avatars.githubusercontent.com/u/91122266?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Lucía</b></sub></a><br /><a href="#design-lcruz45" title="Design">🎨</a></td>
