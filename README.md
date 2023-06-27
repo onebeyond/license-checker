@@ -5,7 +5,7 @@
 <br />
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-10-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 🕵️ Audit your NPM dependencies and reject any forbidden license.
@@ -113,6 +113,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/lcruz45"><img src="https://avatars.githubusercontent.com/u/91122266?v=4?s=100" width="100px;" alt="Lucía"/><br /><sub><b>Lucía</b></sub></a><br /><a href="#design-lcruz45" title="Design">🎨</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://ulisesgascon.com/"><img src="https://avatars.githubusercontent.com/u/5110813?v=4?s=100" width="100px;" alt="Ulises Gascón"/><br /><sub><b>Ulises Gascón</b></sub></a><br /><a href="https://github.com/onebeyond/license-checker/commits?author=UlisesGascon" title="Code">💻</a> <a href="https://github.com/onebeyond/license-checker/commits?author=UlisesGascon" title="Documentation">📖</a> <a href="#maintenance-UlisesGascon" title="Maintenance">🚧</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://www.one-beyond.com/"><img src="https://avatars.githubusercontent.com/u/50929081?v=4?s=100" width="100px;" alt="Fernando de la Torre"/><br /><sub><b>Fernando de la Torre</b></sub></a><br /><a href="https://github.com/onebeyond/license-checker/commits?author=nanotower" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
