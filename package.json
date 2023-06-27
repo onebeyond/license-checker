@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/guidesmiths/license-checker.git"
+    "url": "https://github.com/onebeyond/license-checker.git"
   },
   "keywords": [
     "license"
@@ -30,9 +30,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/guidesmiths/license-checker/issues"
+    "url": "https://github.com/onebeyond/license-checker/issues"
   },
-  "homepage": "https://github.com/guidesmiths/license-checker#readme",
+  "homepage": "https://github.com/onebeyond/license-checker#readme",
   "dependencies": {
     "is-ci": "3.0.1",
     "license-checker": "25.0.1",
