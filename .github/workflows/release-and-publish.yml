@@ -5,13 +5,16 @@ on:
     branches:
       - main
 
-permissions: {}
+permissions: {
+  contents: read
+}
 
 jobs:
   release-please:
     permissions:
       contents: write # to create release commit
       pull-requests: write # to create release PR
+      id-token: write
 
     runs-on: ubuntu-latest
 
