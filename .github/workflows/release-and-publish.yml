@@ -14,7 +14,6 @@ jobs:
     permissions:
       contents: write # to create release commit
       pull-requests: write # to create release PR
-      id-token: write
 
     runs-on: ubuntu-latest
 
@@ -36,6 +35,8 @@ jobs:
     runs-on: ubuntu-latest
 
     needs: [release-please]
+    permissions:
+      id-token: write
 
     # this if statements ensure that a publication only occurs when a new release is created:
     if: ${{ needs.release-please.outputs.release_created }}
