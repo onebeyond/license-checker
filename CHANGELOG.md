@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.3](https://github.com/onebeyond/license-checker/compare/license-checker-v1.0.2...license-checker-v1.0.3) (2023-06-30)
+
+
+### 🐛 Bug Fixes
+
+* added missing permissions in publication pipeline ([#84](https://github.com/onebeyond/license-checker/issues/84)) ([c093a69](https://github.com/onebeyond/license-checker/commit/c093a6932444514f456dcd11c9b1847095cb65c6))
+
 ## [1.0.2](https://github.com/onebeyond/license-checker/compare/license-checker-v1.0.1...license-checker-v1.0.2) (2023-06-29)
 
 

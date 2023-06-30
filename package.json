@@ -1,6 +1,6 @@
 {
   "name": "@onebeyond/license-checker",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Audit your NPM dependencies and reject any forbidden license.",
   "main": "index.js",
   "bin": {
