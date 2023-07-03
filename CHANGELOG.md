@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.4](https://github.com/onebeyond/license-checker/compare/license-checker-v1.0.3...license-checker-v1.0.4) (2023-07-03)
+
+
+### ☁️ CI
+
+* add openssf scorecard gh action ([#87](https://github.com/onebeyond/license-checker/issues/87)) ([8e276b4](https://github.com/onebeyond/license-checker/commit/8e276b49dc5cca4cb0747ffbf749a0cb33b97971))
+
 ## [1.0.3](https://github.com/onebeyond/license-checker/compare/license-checker-v1.0.2...license-checker-v1.0.3) (2023-06-30)
 
 
