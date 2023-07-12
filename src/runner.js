@@ -23,14 +23,11 @@ const run = async (checker, reporter, args) => {
     return;
   }
 
-  const { failOn, generateOutputOn } = args;
+  const { failOn } = args;
 
   checkLicenseError(failOn); // @TODO Remove after issue has been solved
-  checkLicenseError(generateOutputOn);
   checkSPDXCompliance(failOn);
-  checkSPDXCompliance(generateOutputOn);
   const bannedLicenses = generateSPDXExpression(failOn);
-  const generateOutputOnLicenses = generateSPDXExpression(generateOutputOn);
 
   const packages = await checker.parsePackages(args.start);
   const packageList = getPackageInfoList(packages);
@@ -48,9 +45,6 @@ const run = async (checker, reporter, args) => {
   console.info('License check completed! No forbidden licenses packages found.');
 
   if (args.disableReport) return;
-
-  const { forbidden: packagesIncludeOutputLicenses } = checkPackagesLicenses(generateOutputOnLicenses, packageList);
-  if (generateOutputOnLicenses && !packagesIncludeOutputLicenses.length) return;
 
   reporter.writeReportFile(args.outputFileName, packageList, args.customHeader);
 };
