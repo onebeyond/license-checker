@@ -87,21 +87,6 @@ describe('Runner', () => {
       }
     });
 
-    it('should return an error if any of the licenses provided to the "generateOutputOn" argument are not SPDX compliant', async () => {
-      const args = {
-        generateOutputOn: ['MIT', 'GPL', 'BSD']
-      };
-
-      let error;
-      try {
-        await runner.run(checker, reporter, args);
-      } catch (e) {
-        error = e;
-      } finally {
-        expect(error.message).toBe('The following licenses are not SPDX compliant. Please, use the --checkLicense option to validate your input:\nGPL | BSD');
-      }
-    });
-
     it('should return an error if any of the licenses provided to the "failOn" argument are affected by the temporal issue', async () => {
       const args = {
         failOn: ['MIT', 'GPL', 'GFDL-1.1-invariants-or-later']
@@ -342,49 +327,7 @@ describe('Runner', () => {
       expect(reporter.writeReportFile).not.toHaveBeenCalled();
     });
 
-    it('should not call the reporter to generate the report file if there are no licenses that satisfy the "generateOutputOn" argument', async () => {
-      const args = {
-        start: '/path/to/cwd',
-        generateOutputOn: ['MIT', '0BSD']
-      };
-      const packages = {
-        'package-1': {
-          licenses: 'GPL-1.0',
-          repository: 'https://git.com/repo/repo',
-          path: '/path/to/package',
-          licenseFile: '/path/to/package/LICENSE'
-        }
-      };
-
-      checker.parsePackages.mockResolvedValueOnce(packages);
-
-      await runner.run(checker, reporter, args);
-
-      expect(reporter.writeReportFile).not.toHaveBeenCalled();
-    });
-
-    it('should call the reporter to generate the report file if there is at lease on package\'s license that satisfy the "generateOutputOn" argument', async () => {
-      const args = {
-        start: '/path/to/cwd',
-        generateOutputOn: ['GPL-1.0', 'MIT']
-      };
-      const packages = {
-        'package-1': {
-          licenses: 'GPL-1.0',
-          repository: 'https://git.com/repo/repo',
-          path: '/path/to/package',
-          licenseFile: '/path/to/package/LICENSE'
-        }
-      };
-
-      checker.parsePackages.mockResolvedValueOnce(packages);
-
-      await runner.run(checker, reporter, args);
-
-      expect(reporter.writeReportFile).toHaveBeenCalled();
-    });
-
-    it('should call the reporter to generate the report file if the "generateOutputOn" argument is not supplied', async () => {
+    it('should call the reporter to generate the report file', async () => {
       const args = {
         start: '/path/to/cwd'
       };
