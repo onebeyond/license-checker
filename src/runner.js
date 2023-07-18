@@ -1,5 +1,8 @@
 const isSPDXCompliant = require('spdx-expression-validate');
 
+const checker = require('./checker');
+const reporter = require('./reporter');
+
 const {
   getPackageInfoList, formatForbiddenLicenseError, generateSPDXExpression, checkSPDXCompliance, checkPackagesLicenses, isLicenseError, checkLicenseError
 } = require('./utils');
@@ -19,14 +22,14 @@ const check = (license) => {
   console.info(`License ${license} is SPDX compliant`);
 };
 
-const scan = async (checker, reporter, args) => {
-  const { failOn } = args;
+const scan = async (options) => {
+  const { failOn } = options;
 
   checkLicenseError(failOn); // @TODO Remove after issue has been solved
   checkSPDXCompliance(failOn);
   const bannedLicenses = generateSPDXExpression(failOn);
 
-  const packages = await checker.parsePackages(args.start);
+  const packages = await checker.parsePackages(options.start);
   const packageList = getPackageInfoList(packages);
 
   const { forbidden: forbiddenPackages, nonCompliant: invalidPackages } = checkPackagesLicenses(bannedLicenses, packageList);
@@ -35,15 +38,15 @@ const scan = async (checker, reporter, args) => {
   }
 
   if (forbiddenPackages.length) {
-    reporter.writeErrorReportFile(args.errorReportFileName, forbiddenPackages);
+    reporter.writeErrorReportFile(options.errorReportFileName, forbiddenPackages);
     throw new Error(formatForbiddenLicenseError(forbiddenPackages));
   }
 
   console.info('License check completed! No forbidden licenses packages found.');
 
-  if (args.disableReport) return;
+  if (options.disableReport) return;
 
-  reporter.writeReportFile(args.outputFileName, packageList, args.customHeader);
+  reporter.writeReportFile(options.outputFileName, packageList, options.customHeader);
 };
 
 module.exports = {
