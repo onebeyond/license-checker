@@ -1,14 +1,17 @@
-const runner = require('../src/runner');
+const { check } = require('../src/runner');
 
-exports.command = 'checkLicense <license>';
+exports.command = 'check <license>';
 
 exports.describe = 'check if a license is SPDX compliant';
 
+exports.builder = {
+};
+
 exports.handler = function (argv) {
-  const license = argv.license;
+  const { license } = argv;
 
   try {
-    runner.check(license);
+    check(license);
   } catch (e) {
     console.error(e.message);
     process.exit(1);
