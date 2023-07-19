@@ -4,9 +4,6 @@ exports.command = 'check <license>';
 
 exports.describe = 'check if a license is SPDX compliant';
 
-exports.builder = {
-};
-
 exports.handler = function (argv) {
   const { license } = argv;
 
