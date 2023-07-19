@@ -20,6 +20,13 @@ This package allows you to do a quick audit on your NPM dependencies by adding i
 
 You can optionally add options to exclude generating the report or avoid generating the error report in case a forbidden license is found (see more details [here](#options)).
 
+The package provides two commands:
+
+| Command | Description |
+|---|----|
+| scan | (default command) scan licenses of a project looking for forbidden licenses |
+| check | check if a license is SPDX compliant |
+
 ## 🔎 How to use it in your project
 
 - Install the package
@@ -28,54 +35,63 @@ You can optionally add options to exclude generating the report or avoid generat
 npm install @onebeyond/license-checker
 ```
 
+### `check` command
+
+Just run the check command with the license expression you want to check against SPDX:
+
+```sh
+npx @onebeyond/license-checker check <license>
+```
+
+The process will fail if _license_ is not SPDX compliant. 
+
+### `scan` command
+
 - Add a script to run the package
 
 ```sh
-npx @onebeyond/license-checker --failOn license
+npx @onebeyond/license-checker scan --failOn <license>
 ```
+
 - If you are using **yarn** you may want to run it from the node modules instead of using npx
 
 ```sh
-node_modules/.bin/license-checker --failOn license
+node_modules/.bin/license-checker scan --failOn <license>
 ```
 
 - Use the script wherever you want (husky hook, in your CI/CD pipeline, ...)
 
-## 🚩 <a name="options"></a>Options
+#### 🚩 <a name="options"></a>Options
 
-| Option | Description | Type | Default |
-|-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|---------------------------------|
-| --start               | Path of the initial json to look for                                                                                                                         | string   | `process.cwd()`                 |
-| --version             | Shows the version of the package                                                                                                                             | string   |                                 |
-| --failOn              | Fail (exit with code 1) if any package license does not satisfies any license in the provided list                                                           | string[] |                                 |
-| --outputFileName      | Name of the output file generated                                                                                                                            | string   | `license-report-<timestamp>.md` |
-| --errorReportFileName | Name of the file generated when a license in the failOn option is found                                                                                      | string   | `license-error-<timestamp>.md`  |
-| --disableErrorReport  | Flag to disable the error report file generation                                                                                                             | boolean  | `false`                         |
-| --disableReport       | Flag to disable the report file generation, whether there is an error or not                                                                                 | boolean  | `false`                         |
-| --customHeader        | Name of a text file containing the custom header to add at the start of the generated report                                                                 | string   |                                 |
-| --checkLicense        | License to be check against SPDX. It is intended to be used as a standalone option, i.e. if it is present, it will not trigger the package licenses scanning | string   |                                 |
-| -h, --help            | Shows help                                                                                                                                                   | boolean  |                                 |
+| Option | Description | Requiered | Type | Default |
+|---|---|---|---|---|
+| --start | Path of the initial json to look for | false | string | `process.cwd()` |
+| --failOn | Fail (exit with code 1) if any package license does not satisfies any license in the provided list | true | string[] |  |
+| --outputFileName | Name of the report file generated | false | string | `license-report-<timestamp>.md` |
+| --errorReportFileName | Name of the error report file generated when a license in the `failOn` option is found | false | string | `license-error-<timestamp>.md` |
+| --disableErrorReport | Flag to disable the error report file generation | false | boolean  | `false` |
+| --disableReport | Flag to disable the report file generation, whether there is an error or not | false | boolean | `false` |
+| --customHeader | Name of a text file containing the custom header to add at the start of the generated report | false | string | This application makes use of the following open source packages: |
 
 ## 🧑‍💻 <a name="examples"></a>Examples
 
-### checkLicense
+### check command
 
-This option is intended to be used as a standalone functionality to check whether the value supplied is in compliance with SDPX, 
-meaning that if present, the scanning process will not be triggered. It is useful for checking the value before using it on the `failOn` option:
+This command is intended to be used as a standalone functionality to check whether the value supplied is in compliance with SDPX. It is useful for checking the value before using it with the `scan` command:
 
 ```sh
-npx @onebeyond/license-checker --checkLicense "(MIT OR GPL-1.0+) AND 0BSD"
+npx @onebeyond/license-checker check "(MIT OR GPL-1.0+) AND 0BSD"
 ```
 
 If the value provided is not SPDX compliant, the process fails (exit error 1).
 
-### failOn
+### scan command
 
-All the values provided in the list must be [SPDX](https://spdx.dev/specifications/) compliant. Otherwise, an error will be thrown (exit error 1). 
-Check the [SPDX license list](https://spdx.org/licenses/)
+All the values provided in the `failOn` list must be [SPDX](https://spdx.dev/specifications/) compliant. Otherwise, an error will be thrown (exit error 1). 
+Check the [SPDX license list](https://spdx.org/licenses/).
 
 ```sh
-npx @onebeyond/license-checker --failOn MIT GPL-1.0+
+npx @onebeyond/license-checker scan --failOn MIT GPL-1.0+
 ```
 
 The input list is transformed into a SPDX expression with the `OR` logical operator. In the example, that is `MIT OR GPL-1.0+`.
