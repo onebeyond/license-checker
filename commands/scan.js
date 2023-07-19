@@ -9,7 +9,7 @@ if (process.platform === 'win32') {
 
 exports.command = ['scan', '$0'];
 
-exports.describe = 'scan licenses of a project';
+exports.describe = 'scan licenses of a project looking for forbidden licenses';
 
 exports.builder = {
   start: {
