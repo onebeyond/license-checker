@@ -40,7 +40,7 @@ npm install @onebeyond/license-checker
 Just run the check command with the license expression you want to check against SPDX:
 
 ```sh
-npx @onebeyond/license-checker --failOn <license>
+npx @onebeyond/license-checker check <license>
 ```
 
 The process will fail if _license_ is not SPDX compliant. 
