@@ -1,10 +1,6 @@
 const { check } = require('../src/runner');
 
 describe('check command', () => {
-  beforeEach(() => {
-    jest.resetAllMocks();
-  });
-
   it('should throw an error if the license is not SPDX compliant', async () => {
     const license = 'GPL';
 
