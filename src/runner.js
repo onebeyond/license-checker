@@ -42,7 +42,7 @@ const scan = async (options) => {
   }
 
   if (forbiddenPackages.length) {
-    reporter.writeErrorReportFile(options.errorReportFileName, forbiddenPackages);
+    if (!options.disableErrorReport) reporter.writeErrorReportFile(options.errorReportFileName, forbiddenPackages);
     throw new Error(formatForbiddenLicenseError(forbiddenPackages));
   }
 
