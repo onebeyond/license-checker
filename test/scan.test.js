@@ -46,7 +46,8 @@ describe('scan command', () => {
   describe('command execution output', () => {
     it('should call the checker passing the path to the working directory', async () => {
       const options = {
-        start: '/path/to/cwd'
+        start: '/path/to/cwd',
+        failOn: ['MIT']
       };
 
       const packages = {
@@ -67,7 +68,8 @@ describe('scan command', () => {
 
     it('should print a message if any of the packages\' licenses are not SPDX compliant', async () => {
       const options = {
-        start: '/path/to/cwd'
+        start: '/path/to/cwd',
+        failOn: ['MIT']
       };
 
       const packages = {
@@ -251,12 +253,36 @@ describe('scan command', () => {
         );
       }
     });
+
+    it('should not call the reporter to generate the error report file if the option "disableErrorReport" is supplied', async () => {
+      const options = {
+        start: '/path/to/cwd',
+        failOn: ['GPL-1.0+'],
+        disableErrorReport: true
+      };
+
+      const packages = {
+        'package-1': {
+          licenses: 'GPL-1.0',
+          repository: 'https://git.com/repo/repo',
+          path: '/path/to/package',
+          licenseFile: '/path/to/package/LICENSE'
+        }
+      };
+
+      parsePackages.mockResolvedValueOnce(packages);
+
+      await scan(options);
+
+      expect(writeErrorReportFile).not.toHaveBeenCalled();
+    });
   });
 
   describe('licenses report file', () => {
     it('should not call the reporter to generate the report file if the option "disableReport" is supplied', async () => {
       const options = {
         start: '/path/to/cwd',
+        failOn: ['MIT'],
         disableReport: true
       };
 
@@ -278,7 +304,8 @@ describe('scan command', () => {
 
     it('should call the reporter to generate the report file', async () => {
       const options = {
-        start: '/path/to/cwd'
+        start: '/path/to/cwd',
+        failOn: ['MIT']
       };
 
       const packages = {
@@ -300,6 +327,7 @@ describe('scan command', () => {
     it('should call the reporter with the right arguments', async () => {
       const options = {
         start: '/path/to/cwd',
+        failOn: ['MIT'],
         outputFileName: 'outputFileName',
         customHeader: 'customHeader'
       };
