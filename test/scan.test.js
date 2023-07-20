@@ -2,7 +2,7 @@ jest.mock('../src/checker');
 jest.mock('../src/reporter');
 
 const { scan } = require('../src/runner');
-
+const logger = require('../src/logger');
 const { parsePackages } = require('../src/checker');
 const { writeErrorReportFile, writeReportFile } = require('../src/reporter');
 
@@ -79,13 +79,13 @@ describe('scan command', () => {
         }
       };
 
-      jest.spyOn(console, 'info');
-
       parsePackages.mockResolvedValueOnce(packages);
+
+      const errorSpy = jest.spyOn(logger, 'warn');
 
       await scan(options);
 
-      expect(console.info).toHaveBeenCalledWith(
+      expect(errorSpy).toHaveBeenCalledWith(
         `The following package licenses are not SPDX compliant and cannot be validated:\n > ${Object.keys(packages)[0]} | ${packages['package-1'].licenses}`
       );
     });
