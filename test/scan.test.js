@@ -254,7 +254,7 @@ describe('scan command', () => {
       }
     });
 
-    it('should not call the reporter to generate the error report file if the option "disableErrorReport" is supplied', async () => {
+    it('should not call the reporter to generate the error report file if the option "disableErrorReport" is enabled', async () => {
       const options = {
         start: '/path/to/cwd',
         failOn: ['GPL-1.0+'],
@@ -272,9 +272,15 @@ describe('scan command', () => {
 
       parsePackages.mockResolvedValueOnce(packages);
 
-      await scan(options);
-
-      expect(writeErrorReportFile).not.toHaveBeenCalled();
+      let error;
+      try {
+        await scan(options);
+      } catch (err) {
+        error = err;
+      } finally {
+        expect(error.message).toBe('Found 1 packages with licenses defined by the --failOn flag:\n > 1 packages with license GPL-1.0');
+        expect(writeErrorReportFile).not.toHaveBeenCalled();
+      }
     });
   });
 
