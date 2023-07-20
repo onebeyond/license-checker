@@ -8,6 +8,8 @@ const {
 } = require('./utils');
 
 const check = (license) => {
+  if (!license) throw new Error('Error: You must provide a license to check.');
+
   // @TODO Remove after issue has been solved
   if (isLicenseError(license)) {
     throw new Error(
@@ -24,6 +26,8 @@ const check = (license) => {
 
 const scan = async (options) => {
   const { failOn } = options;
+
+  if (!failOn) throw new Error('Error: You must provide a list of licenses to fail on in the "failOn" option.');
 
   checkLicenseError(failOn); // @TODO Remove after issue has been solved
   checkSPDXCompliance(failOn);
