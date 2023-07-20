@@ -1,4 +1,5 @@
 const { scan } = require('../src/runner');
+const logger = require('../src/logger');
 
 let timestamp = new Date().toISOString();
 
@@ -54,7 +55,7 @@ exports.handler = async function (argv) {
   try {
     await scan(options);
   } catch (e) {
-    console.error(e.message);
+    logger.error(e.message);
     process.exit(1);
   }
 };
