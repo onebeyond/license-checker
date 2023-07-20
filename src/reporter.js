@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const fs = require('fs');
 
-const { info, warn } = require('./logger');
+const logger = require('./logger');
 
 const defaultReportHeader = 'This application makes use of the following open source packages:';
 const errorReportHeader = 'The following packages use invalid licenses:';
@@ -43,7 +43,7 @@ const writeReportFile = header =>
       try {
         licenseReportHeader = fs.readFileSync(customHeaderFileName);
       } catch {
-        warn(`Failed to read file ${customHeaderFileName}, so default header will be added to the report`);
+        logger.warn(`Failed to read file ${customHeaderFileName}, so default header will be added to the report`);
       }
     }
 
@@ -54,13 +54,13 @@ const writeReportFile = header =>
     `${licenseReportHeader}\n${licenseTable}`,
     error => {
       if (error) {
-        error(`Error generating report file ${outputFileName}.md`);
+        logger.error(`Error generating report file ${outputFileName}.md`);
         throw error;
       }
     }
     );
 
-    info(`${outputFileName}.md created!`);
+    logger.info(`${outputFileName}.md created!`);
   };
 
 module.exports = {

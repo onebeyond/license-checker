@@ -2,7 +2,7 @@ const isSPDXCompliant = require('spdx-expression-validate');
 
 const checker = require('./checker');
 const reporter = require('./reporter');
-const { info } = require('./logger');
+const logger = require('./logger');
 const {
   getPackageInfoList, formatForbiddenLicenseError, generateSPDXExpression, checkSPDXCompliance, checkPackagesLicenses, isLicenseError, checkLicenseError
 } = require('./utils');
@@ -19,7 +19,7 @@ const check = (license) => {
     throw new Error(`Error: License "${license}" is not SPDX compliant. Please visit https://spdx.org/licenses/ for the full list of valid licenses.`);
   }
 
-  info(`License ${license} is SPDX compliant`);
+  logger.info(`License ${license} is SPDX compliant`);
 };
 
 const scan = async (options) => {
@@ -34,7 +34,7 @@ const scan = async (options) => {
 
   const { forbidden: forbiddenPackages, nonCompliant: invalidPackages } = checkPackagesLicenses(bannedLicenses, packageList);
   if (invalidPackages.length) {
-    info(`The following package licenses are not SPDX compliant and cannot be validated:\n${invalidPackages.map(pkg => ` > ${pkg.package} | ${pkg.licenses}`).join('\n')}`);
+    logger.warn(`The following package licenses are not SPDX compliant and cannot be validated:\n${invalidPackages.map(pkg => ` > ${pkg.package} | ${pkg.licenses}`).join('\n')}`);
   }
 
   if (forbiddenPackages.length) {
@@ -42,7 +42,7 @@ const scan = async (options) => {
     throw new Error(formatForbiddenLicenseError(forbiddenPackages));
   }
 
-  info('License check completed! No forbidden licenses packages found.');
+  logger.info('License check completed! No forbidden licenses packages found.');
 
   if (options.disableReport) return;
 

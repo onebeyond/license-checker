@@ -1,5 +1,5 @@
 const { check } = require('../src/runner');
-const { error } = require('../src/logger');
+const logger = require('../src/logger');
 
 exports.command = 'check <license>';
 
@@ -11,7 +11,7 @@ exports.handler = function (argv) {
   try {
     check(license);
   } catch (e) {
-    error(e.message);
+    logger.error(e.message);
     process.exit(1);
   }
 };
