@@ -4,11 +4,19 @@
 
 <br />
 
-<a href="https://codeclimate.com/github/onebeyond/license-checker/maintainability"><img src="https://api.codeclimate.com/v1/badges/b82d888950f7f1b3f6a7/maintainability" /></a>
-<a href="https://codeclimate.com/github/onebeyond/license-checker/test_coverage"><img src="https://api.codeclimate.com/v1/badges/b82d888950f7f1b3f6a7/test_coverage" /></a>
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-10-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/@onebeyond/license-checker" target="_blank"><img src="https://img.shields.io/npm/v/@onebeyond/license-checker.svg?style=flat-square" alt="npm version" /></a>
+  <a href="https://www.npmjs.com/package/@onebeyond/license-checker" target="_blank"><img src="https://img.shields.io/npm/dm/@onebeyond/license-checker.svg?style=flat-square" alt="npm downloads" /></a>
+  <a href="https://github.com/onebeyond/license-checker/actions/workflows/run-tests.yml" target="_blank"><img src="https://github.com/onebeyond/license-checker/actions/workflows/run-tests.yml/badge.svg" alt="run-tests workflow" /></a>
+  <a href="https://github.com/onebeyond/license-checker/actions/workflows/release-and-publish.yml" target="_blank"><img src="https://github.com/onebeyond/license-checker/actions/workflows/release-and-publish.yml/badge.svg" alt="release-and-publish workflow" /></a>
+  <a href="https://codeclimate.com/github/onebeyond/license-checker/maintainability"><img src="https://api.codeclimate.com/v1/badges/b82d888950f7f1b3f6a7/maintainability" /></a>
+  <a href="https://codeclimate.com/github/onebeyond/license-checker/test_coverage"><img src="https://api.codeclimate.com/v1/badges/b82d888950f7f1b3f6a7/test_coverage" /></a>
+  <a href="https://socket.dev/npm/package/@onebeyond/license-checker" target="_blank"><img src="https://socket.dev/api/badge/npm/package/@onebeyond/license-checker" alt="socket.dev" /></a>
+  <a href="https://img.shields.io/github/all-contributors/onebeyond/license-checker?color=ee8449&style=flat-square" target="_blank"><img src="https://img.shields.io/github/all-contributors/onebeyond/license-checker?color=ee8449&style=flat-square" alt="all-contributors" /></a>
+
+</p>
 
 🕵️ Audit your NPM dependencies and reject any forbidden license.
 
