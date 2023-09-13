@@ -2,6 +2,41 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/onebeyond/license-checker/compare/license-checker-v1.0.4...license-checker-v2.0.0) (2023-09-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* add check command instead of using it as an option ([#96](https://github.com/onebeyond/license-checker/issues/96))
+* remove generateOutputOn option ([#92](https://github.com/onebeyond/license-checker/issues/92))
+
+### 🆕 Features
+
+* add check command instead of using it as an option ([#96](https://github.com/onebeyond/license-checker/issues/96)) ([cd53a8d](https://github.com/onebeyond/license-checker/commit/cd53a8d5dc531935eb0e3483b1d4f014469a9a5b))
+* add colors to console ([#98](https://github.com/onebeyond/license-checker/issues/98)) ([cf9be6e](https://github.com/onebeyond/license-checker/commit/cf9be6e060414134078d0730e7a215e97edd127a))
+* remove generateOutputOn option ([#92](https://github.com/onebeyond/license-checker/issues/92)) ([a7f976c](https://github.com/onebeyond/license-checker/commit/a7f976ccba99cd551bb96209ed1052c4ac92a868))
+
+
+### 🐛 Bug Fixes
+
+* avoid generating error report when disableErrorReport is true ([#97](https://github.com/onebeyond/license-checker/issues/97)) ([88c1abe](https://github.com/onebeyond/license-checker/commit/88c1abe7229013ce5c095beedcb6546100e7c23f))
+
+
+### 🔧 Others
+
+* add Code Climate badges ([#95](https://github.com/onebeyond/license-checker/issues/95)) ([b92b15a](https://github.com/onebeyond/license-checker/commit/b92b15a7b9c74a542b3ec7296636aa71c8b0993e))
+* remove unused dependencies ([#100](https://github.com/onebeyond/license-checker/issues/100)) ([23f6967](https://github.com/onebeyond/license-checker/commit/23f69675fd8bd7b101c084a30df0a4880e8c28df))
+
+
+### 📝 Docs
+
+* add new badges to readme file ([#101](https://github.com/onebeyond/license-checker/issues/101)) ([c56212e](https://github.com/onebeyond/license-checker/commit/c56212ef40cd5614cf6932846f2f4d7737d0230f))
+
+
+### 🔬 Tests
+
+* test coverage ([#102](https://github.com/onebeyond/license-checker/issues/102)) ([aece706](https://github.com/onebeyond/license-checker/commit/aece706c6718cd2278f09fbebb3f536b2657caa9))
+
 ## [1.0.4](https://github.com/onebeyond/license-checker/compare/license-checker-v1.0.3...license-checker-v1.0.4) (2023-07-03)
 
 
