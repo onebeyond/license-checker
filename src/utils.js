@@ -118,6 +118,15 @@ const checkPackagesLicenses = (expression, packages) => {
   }, { forbidden: [], nonCompliant: [] });
 };
 
+const checkArgs = (args) => {
+  if (args._[0] === 'scan') {
+    const { failOn, allowOnly } = args;
+    if (!failOn && !allowOnly) throw new Error('You need to provide the "failOn" or "allowOnly" option.');
+    if ((failOn && !failOn.length) || (allowOnly && !allowOnly.length)) throw new Error('You need to provide at least one license.');
+  }
+  return true;
+};
+
 module.exports = {
   getPackageInfoList,
   formatForbiddenLicenseError,
@@ -125,5 +134,6 @@ module.exports = {
   checkSPDXCompliance,
   checkPackagesLicenses,
   isLicenseError,
-  checkLicenseError
+  checkLicenseError,
+  checkArgs
 };
