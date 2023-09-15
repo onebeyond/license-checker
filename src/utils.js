@@ -41,7 +41,7 @@ const formatForbiddenLicenseError = licenses => {
       [licenses]: !stats[licenses] ? 1 : stats[licenses] + 1
     }), {});
 
-  const header = `Found ${licenses.length} packages with licenses defined by the --failOn flag:`;
+  const header = `Found ${licenses.length} packages with licenses defined by the provided option:`;
   const lines = Object
     .entries(forbiddenLicenseStats)
     .map(([license, value]) => ` > ${value} packages with license ${license}`)
@@ -66,7 +66,7 @@ const checkSPDXCompliance = (licenses = []) => {
   const invalidLicenses = licenses.filter(arg => !isSPDXCompliant(arg));
   if (invalidLicenses.length) {
     throw new Error(
-      `The following licenses are not SPDX compliant. Please, use the --checkLicense option to validate your input:\n${invalidLicenses.join(' | ')}`
+      `The following licenses are not SPDX compliant. Please, use the "check" command to validate your input:\n${invalidLicenses.join(' | ')}`
     );
   }
 };
@@ -80,7 +80,7 @@ const checkLicenseError = (licenses = []) => {
   const errorLicenses = licenses.some(isLicenseError);
   if (errorLicenses) {
     throw new Error(
-      'Your failOn list contains a GFDL-1.x licenses and they are temporary unallowed. There\'s an issue pending to solve.'
+      'Your licenses list contains a GFDL-1.x licenses and they are temporary unallowed. There\'s an issue pending to solve.'
     );
   }
 };
