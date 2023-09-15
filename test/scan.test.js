@@ -23,7 +23,7 @@ describe('scan command', () => {
       } catch (e) {
         error = e;
       } finally {
-        expect(error.message).toBe('The following licenses are not SPDX compliant. Please, use the check command to validate your input:\nGPL | BSD');
+        expect(error.message).toBe('The following licenses are not SPDX compliant. Please, use the "check" command to validate your input:\nGPL | BSD');
       }
     });
 
