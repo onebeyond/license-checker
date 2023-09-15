@@ -99,19 +99,26 @@ const isLicenseError = (license = '') => licensesExceptions.includes(license);
  * If a package license does not satisfy the allowed SPDX id list, the package will be included on the "forbidden" list.
  * @param {string} expression - A SPDX expression
  * @param {object[]} packages - A list of packages to be checked against the SPDX expression
+ * @param {boolean} allow - Determines the license check. If true, forbidden will contain all the packages that
+ * do not comply with the expression. If false, forbidden will contain all the packages that comply with the expression
  * @return {{forbidden: object[], nonCompliant: object[]}} - A couple of lists including the packages that satisfy the SPDX expression
  * and the packages with a non SPDX compliant license
  */
-const checkPackagesLicenses = (expression, packages) => {
-  const validSpdxIds = expression && spdxIds.filter(id => !isLicenseError(id) && !satisfiesSPDXLicense(id, expression)); // @TODO Refactor after issue has been solved
-  const allowedLicensesExp = expression && generateSPDXExpression(validSpdxIds);
+const checkPackagesLicenses = (expression, packages, allow = false) => {
+  const validSpdxIds = spdxIds.filter(id => {
+    if (isLicenseError(id)) return false;// @TODO Refactor after issue has been solved
+    const isSatisfied = satisfiesSPDXLicense(id, expression);
+    return allow ? isSatisfied : !isSatisfied;
+  });
+
+  const allowedLicensesExp = generateSPDXExpression(validSpdxIds);
 
   return packages.reduce((total, pkg) => {
     const { licenses } = pkg;
 
     if (!isSPDXCompliant(licenses)) return { ...total, nonCompliant: [...total.nonCompliant, pkg] };
 
-    const isSatisfiedLicense = expression && !satisfiesSPDXLicense(licenses, allowedLicensesExp);
+    const isSatisfiedLicense = !satisfiesSPDXLicense(licenses, allowedLicensesExp);
     if (isSatisfiedLicense) return { ...total, forbidden: [...total.forbidden, pkg] };
 
     return total;

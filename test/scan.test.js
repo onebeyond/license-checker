@@ -23,7 +23,7 @@ describe('scan command', () => {
       } catch (e) {
         error = e;
       } finally {
-        expect(error.message).toBe('The following licenses are not SPDX compliant. Please, use the --checkLicense option to validate your input:\nGPL | BSD');
+        expect(error.message).toBe('The following licenses are not SPDX compliant. Please, use the check command to validate your input:\nGPL | BSD');
       }
     });
 
@@ -38,166 +38,332 @@ describe('scan command', () => {
       } catch (e) {
         error = e;
       } finally {
-        expect(error.message).toBe("Your failOn list contains a GFDL-1.x licenses and they are temporary unallowed. There's an issue pending to solve.");
+        expect(error.message).toBe("Your licenses list contains a GFDL-1.x licenses and they are temporary unallowed. There's an issue pending to solve.");
       }
     });
   });
 
   describe('command execution output', () => {
-    it('should call the checker passing the path to the working directory', async () => {
-      const options = {
-        start: '/path/to/cwd',
-        failOn: ['MIT']
-      };
+    describe('"failOn" option', () => {
+      it('should call the checker passing the path to the working directory', async () => {
+        const options = {
+          start: '/path/to/cwd',
+          failOn: ['MIT']
+        };
 
-      const packages = {
-        'package-1': {
-          licenses: 'GPL-1.0+',
-          repository: 'https://git.com/repo/repo',
-          path: '/path/to/package',
-          licenseFile: '/path/to/package/LICENSE'
-        }
-      };
+        const packages = {
+          'package-1': {
+            licenses: 'GPL-1.0+',
+            repository: 'https://git.com/repo/repo',
+            path: '/path/to/package',
+            licenseFile: '/path/to/package/LICENSE'
+          }
+        };
 
-      parsePackages.mockResolvedValueOnce(packages);
+        parsePackages.mockResolvedValueOnce(packages);
 
-      await scan(options);
-
-      expect(parsePackages).toHaveBeenCalledWith(options.start);
-    });
-
-    it('should print a message if any of the packages\' licenses are not SPDX compliant', async () => {
-      const options = {
-        start: '/path/to/cwd',
-        failOn: ['MIT']
-      };
-
-      const packages = {
-        'package-1': {
-          licenses: 'GPL',
-          repository: 'https://git.com/repo/repo',
-          path: '/path/to/package',
-          licenseFile: '/path/to/package/LICENSE'
-        }
-      };
-
-      parsePackages.mockResolvedValueOnce(packages);
-
-      const errorSpy = jest.spyOn(logger, 'warn');
-
-      await scan(options);
-
-      expect(errorSpy).toHaveBeenCalledWith(
-        `The following package licenses are not SPDX compliant and cannot be validated:\n > ${Object.keys(packages)[0]} | ${packages['package-1'].licenses}`
-      );
-    });
-
-    it('should throw an error if any packages\' licenses satisfies the "failOn" argument', async () => {
-      const options = {
-        start: '/path/to/cwd',
-        failOn: ['MIT', 'GPL-1.0+']
-      };
-
-      const packages = {
-        'package-1': {
-          licenses: 'MIT',
-          repository: 'https://git.com/repo/repo',
-          path: '/path/to/package',
-          licenseFile: '/path/to/package/LICENSE'
-        }
-      };
-
-      parsePackages.mockResolvedValueOnce(packages);
-
-      let error;
-      try {
         await scan(options);
-      } catch (e) {
-        error = e;
-      } finally {
-        expect(error.message).toBe('Found 1 packages with licenses defined by the --failOn flag:\n > 1 packages with license MIT');
-      }
+
+        expect(parsePackages).toHaveBeenCalledWith(options.start);
+      });
+
+      it('should print a message if any of the packages\' licenses are not SPDX compliant', async () => {
+        const options = {
+          start: '/path/to/cwd',
+          failOn: ['MIT']
+        };
+
+        const packages = {
+          'package-1': {
+            licenses: 'GPL',
+            repository: 'https://git.com/repo/repo',
+            path: '/path/to/package',
+            licenseFile: '/path/to/package/LICENSE'
+          }
+        };
+
+        parsePackages.mockResolvedValueOnce(packages);
+
+        const errorSpy = jest.spyOn(logger, 'warn');
+
+        await scan(options);
+
+        expect(errorSpy).toHaveBeenCalledWith(
+          `The following package licenses are not SPDX compliant and cannot be validated:\n > ${Object.keys(packages)[0]} | ${packages['package-1'].licenses}`
+        );
+      });
+
+      it('should throw an error if any packages\' licenses satisfies the "failOn" argument', async () => {
+        const options = {
+          start: '/path/to/cwd',
+          failOn: ['MIT', 'GPL-1.0+']
+        };
+
+        const packages = {
+          'package-1': {
+            licenses: 'MIT',
+            repository: 'https://git.com/repo/repo',
+            path: '/path/to/package',
+            licenseFile: '/path/to/package/LICENSE'
+          }
+        };
+
+        parsePackages.mockResolvedValueOnce(packages);
+
+        let error;
+        try {
+          await scan(options);
+        } catch (e) {
+          error = e;
+        } finally {
+          expect(error.message).toBe('Found 1 packages with licenses defined by the provided option:\n > 1 packages with license MIT');
+        }
+      });
+
+      it('should not throw an error if one of the licences in a package joined by the operator OR contains one of the licences in the "failOn" argument', async () => {
+        const options = {
+          start: '/path/to/cwd',
+          failOn: ['MIT', 'GPL-1.0+']
+        };
+
+        const packages = {
+          'package-1': {
+            licenses: 'MIT OR Apache-2.0',
+            repository: 'https://git.com/repo/repo',
+            path: '/path/to/package',
+            licenseFile: '/path/to/package/LICENSE'
+          }
+        };
+
+        let error;
+
+        parsePackages.mockResolvedValueOnce(packages);
+        try {
+          await scan(options);
+        } catch (err) {
+          error = err;
+        } finally {
+          expect(error).toBeUndefined();
+        }
+      });
+
+      it('should not throw an error if one of the licences in a package joined by the operator AND does not contain any licences in the "failOn" argument', async () => {
+        const options = {
+          start: '/path/to/cwd',
+          failOn: ['GPL-1.0+']
+        };
+
+        const packages = {
+          'package-1': {
+            licenses: 'MIT AND Apache-2.0',
+            repository: 'https://git.com/repo/repo',
+            path: '/path/to/package',
+            licenseFile: '/path/to/package/LICENSE'
+          }
+        };
+
+        parsePackages.mockResolvedValueOnce(packages);
+
+        let error;
+        try {
+          await scan(options);
+        } catch (err) {
+          error = err;
+        } finally {
+          expect(error).toBeUndefined();
+        }
+      });
+
+      it('should throw an error if any packages\' licenses joined by the AND operator satisfies the "failOn" argument', async () => {
+        const options = {
+          start: '/path/to/cwd',
+          failOn: ['GPL-1.0+', 'MIT']
+        };
+
+        const packages = {
+          'package-1': {
+            licenses: 'MIT AND Apache-2.0',
+            repository: 'https://git.com/repo/repo',
+            path: '/path/to/package',
+            licenseFile: '/path/to/package/LICENSE'
+          }
+        };
+
+        parsePackages.mockResolvedValueOnce(packages);
+
+        let error;
+        try {
+          await scan(options);
+        } catch (err) {
+          error = err;
+        } finally {
+          expect(error.message).toBe('Found 1 packages with licenses defined by the provided option:\n > 1 packages with license MIT AND Apache-2.0');
+        }
+      });
     });
 
-    it('should not throw an error if one of the licences in a package joined by the operator OR contains one of the licences in the failOn arguments', async () => {
-      const options = {
-        start: '/path/to/cwd',
-        failOn: ['MIT', 'GPL-1.0+']
-      };
+    describe('"allowOnly" option', () => {
+      it('should call the checker passing the path to the working directory', async () => {
+        const options = {
+          start: '/path/to/cwd',
+          allowOnly: ['MIT']
+        };
 
-      const packages = {
-        'package-1': {
-          licenses: 'MIT OR Apache-2.0',
-          repository: 'https://git.com/repo/repo',
-          path: '/path/to/package',
-          licenseFile: '/path/to/package/LICENSE'
-        }
-      };
+        const packages = {
+          'package-1': {
+            licenses: 'MIT',
+            repository: 'https://git.com/repo/repo',
+            path: '/path/to/package',
+            licenseFile: '/path/to/package/LICENSE'
+          }
+        };
 
-      let error;
+        parsePackages.mockResolvedValueOnce(packages);
 
-      parsePackages.mockResolvedValueOnce(packages);
-      try {
         await scan(options);
-      } catch (err) {
-        error = err;
-      } finally {
-        expect(error).toBeUndefined();
-      }
-    });
 
-    it('should not throw an error if one of the licences in a package joined by the operator AND does not contain any licences in the failOn arguments', async () => {
-      const options = {
-        start: '/path/to/cwd',
-        failOn: ['GPL-1.0+']
-      };
+        expect(parsePackages).toHaveBeenCalledWith(options.start);
+      });
 
-      const packages = {
-        'package-1': {
-          licenses: 'MIT AND Apache-2.0',
-          repository: 'https://git.com/repo/repo',
-          path: '/path/to/package',
-          licenseFile: '/path/to/package/LICENSE'
-        }
-      };
+      it('should print a message if any of the packages\' licenses are not SPDX compliant', async () => {
+        const options = {
+          start: '/path/to/cwd',
+          allowOnly: ['MIT']
+        };
 
-      parsePackages.mockResolvedValueOnce(packages);
+        const packages = {
+          'package-1': {
+            licenses: 'GPL',
+            repository: 'https://git.com/repo/repo',
+            path: '/path/to/package',
+            licenseFile: '/path/to/package/LICENSE'
+          }
+        };
 
-      let error;
-      try {
+        parsePackages.mockResolvedValueOnce(packages);
+
+        const errorSpy = jest.spyOn(logger, 'warn');
+
         await scan(options);
-      } catch (err) {
-        error = err;
-      } finally {
-        expect(error).toBeUndefined();
-      }
-    });
 
-    it('should throw an error if any packages\' licenses joined by the AND operator satisfies the "failOn" argument', async () => {
-      const options = {
-        start: '/path/to/cwd',
-        failOn: ['GPL-1.0+', 'MIT']
-      };
+        expect(errorSpy).toHaveBeenCalledWith(
+          `The following package licenses are not SPDX compliant and cannot be validated:\n > ${Object.keys(packages)[0]} | ${packages['package-1'].licenses}`
+        );
+      });
 
-      const packages = {
-        'package-1': {
-          licenses: 'MIT AND Apache-2.0',
-          repository: 'https://git.com/repo/repo',
-          path: '/path/to/package',
-          licenseFile: '/path/to/package/LICENSE'
+      it('should throw an error if none packages\' licenses satisfy the "allowOnly" argument', async () => {
+        const options = {
+          start: '/path/to/cwd',
+          allowOnly: ['MIT', 'GPL-1.0+']
+        };
+
+        const packages = {
+          'package-1': {
+            licenses: 'OpenSSL',
+            repository: 'https://git.com/repo/repo',
+            path: '/path/to/package',
+            licenseFile: '/path/to/package/LICENSE'
+          }
+        };
+
+        parsePackages.mockResolvedValueOnce(packages);
+
+        let error;
+        try {
+          await scan(options);
+        } catch (e) {
+          error = e;
+        } finally {
+          expect(error.message).toBe('Found 1 packages with licenses defined by the provided option:\n > 1 packages with license OpenSSL');
         }
-      };
+      });
 
-      parsePackages.mockResolvedValueOnce(packages);
+      it('should not throw an error if one of the licences in a package joined by the operator OR contains one of the licences in the "allowOnly" arguments', async () => {
+        const options = {
+          start: '/path/to/cwd',
+          allowOnly: ['MIT', 'Apache-2.0']
+        };
 
-      let error;
-      try {
-        await scan(options);
-      } catch (err) {
-        error = err;
-      } finally {
-        expect(error.message).toBe('Found 1 packages with licenses defined by the --failOn flag:\n > 1 packages with license MIT AND Apache-2.0');
-      }
+        const packages = {
+          'package-1': {
+            licenses: 'MIT OR Apache-2.0',
+            repository: 'https://git.com/repo/repo',
+            path: '/path/to/package',
+            licenseFile: '/path/to/package/LICENSE'
+          },
+          'package-2': {
+            licenses: 'GPL-1.0+ OR Apache-2.0',
+            repository: 'https://git.com/repo/repo',
+            path: '/path/to/package',
+            licenseFile: '/path/to/package/LICENSE'
+          }
+        };
+
+        let error;
+
+        parsePackages.mockResolvedValueOnce(packages);
+        try {
+          await scan(options);
+        } catch (err) {
+          error = err;
+        } finally {
+          expect(error).toBeUndefined();
+        }
+      });
+
+      it('should not throw an error if one of the licences in a package joined by the operator AND contains all licences in the "allowOnly" arguments', async () => {
+        const options = {
+          start: '/path/to/cwd',
+          allowOnly: ['MIT AND Apache-2.0']
+        };
+
+        const packages = {
+          'package-1': {
+            licenses: 'MIT AND Apache-2.0',
+            repository: 'https://git.com/repo/repo',
+            path: '/path/to/package',
+            licenseFile: '/path/to/package/LICENSE'
+          }
+        };
+
+        parsePackages.mockResolvedValueOnce(packages);
+
+        let error;
+        try {
+          await scan(options);
+        } catch (err) {
+          error = err;
+        } finally {
+          expect(error).toBeUndefined();
+        }
+      });
+
+      it('should throw an error if any packages\' licenses joined by the AND operator does not satisfy the "allowOnly" argument', async () => {
+        const options = {
+          start: '/path/to/cwd',
+          allowOnly: ['MIT']
+        };
+
+        const packages = {
+          'package-1': {
+            licenses: 'MIT AND Apache-2.0',
+            repository: 'https://git.com/repo/repo',
+            path: '/path/to/package',
+            licenseFile: '/path/to/package/LICENSE'
+          }
+        };
+
+        parsePackages.mockResolvedValueOnce(packages);
+
+        let error;
+        try {
+          await scan(options);
+        } catch (err) {
+          error = err;
+        } finally {
+          expect(error.message).toBe('Found 1 packages with licenses defined by the provided option:\n > 1 packages with license MIT AND Apache-2.0');
+        }
+      });
     });
   });
 
@@ -278,7 +444,7 @@ describe('scan command', () => {
       } catch (err) {
         error = err;
       } finally {
-        expect(error.message).toBe('Found 1 packages with licenses defined by the --failOn flag:\n > 1 packages with license GPL-1.0');
+        expect(error.message).toBe('Found 1 packages with licenses defined by the provided option:\n > 1 packages with license GPL-1.0');
         expect(writeErrorReportFile).not.toHaveBeenCalled();
       }
     });
