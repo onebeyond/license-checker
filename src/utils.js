@@ -118,8 +118,7 @@ const checkPackagesLicenses = (expression, packages, allow = false) => {
 
     if (!isSPDXCompliant(licenses)) return { ...total, nonCompliant: [...total.nonCompliant, pkg] };
 
-    const isSatisfiedLicense = !satisfiesSPDXLicense(licenses, allowedLicensesExp);
-    if (isSatisfiedLicense) return { ...total, forbidden: [...total.forbidden, pkg] };
+    if (!satisfiesSPDXLicense(licenses, allowedLicensesExp)) return { ...total, forbidden: [...total.forbidden, pkg] };
 
     return total;
   }, { forbidden: [], nonCompliant: [] });
