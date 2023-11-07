@@ -71,15 +71,19 @@ node_modules/.bin/license-checker scan --failOn <license>
 
 #### 🚩 <a name="options"></a>Options
 
-| Option | Description | Requiered | Type | Default |
-|---|---|---|---|---|
-| --start | Path of the initial json to look for | false | string | `process.cwd()` |
-| --failOn | Fail (exit with code 1) if any package license does not satisfies any license in the provided list | true | string[] |  |
-| --outputFileName | Name of the report file generated | false | string | `license-report-<timestamp>.md` |
-| --errorReportFileName | Name of the error report file generated when a license in the `failOn` option is found | false | string | `license-error-<timestamp>.md` |
-| --disableErrorReport | Flag to disable the error report file generation | false | boolean  | `false` |
-| --disableReport | Flag to disable the report file generation, whether there is an error or not | false | boolean | `false` |
-| --customHeader | Name of a text file containing the custom header to add at the start of the generated report | false | string | This application makes use of the following open source packages: |
+| Option                | Description                                                                                                           | Requiered | Type | Default |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------------|---|---|---|
+| --start               | Path of the initial json to look for                                                                                  | false | string | `process.cwd()` |
+| --failOn              | Fail (exit with code 1) if at least one package license **satisfies** one of the licenses in the provided list        | true | string[] |  |
+| --allowOnly           | Fail (exit with code 1) if at least one package license **does not satisfy** one of the licenses in the provided list | true | string[] |  |
+| --outputFileName      | Name of the report file generated                                                                                     | false | string | `license-report-<timestamp>.md` |
+| --errorReportFileName | Name of the error report file generated when a license in the `failOn` option is found                                | false | string | `license-error-<timestamp>.md` |
+| --disableErrorReport  | Flag to disable the error report file generation                                                                      | false | boolean  | `false` |
+| --disableReport       | Flag to disable the report file generation, whether there is an error or not                                          | false | boolean | `false` |
+| --customHeader        | Name of a text file containing the custom header to add at the start of the generated report                          | false | string | This application makes use of the following open source packages: |
+
+
+> ❗The options `--failOn` and `--allowOnly` are mutually exclusive. You must use one of them.
 
 ## 🧑‍💻 <a name="examples"></a>Examples
 
@@ -95,7 +99,7 @@ If the value provided is not SPDX compliant, the process fails (exit error 1).
 
 ### scan command
 
-All the values provided in the `failOn` list must be [SPDX](https://spdx.dev/specifications/) compliant. Otherwise, an error will be thrown (exit error 1). 
+All the values provided in the `failOn` or `allowOnly` list must be [SPDX](https://spdx.dev/specifications/) compliant. Otherwise, an error will be thrown (exit error 1). 
 Check the [SPDX license list](https://spdx.org/licenses/).
 
 ```sh
@@ -105,6 +109,22 @@ npx @onebeyond/license-checker scan --failOn MIT GPL-1.0+
 The input list is transformed into a SPDX expression with the `OR` logical operator. In the example, that is `MIT OR GPL-1.0+`.
 If any of the packages' licenses satisfies that expression, the process fails (exit error 1).
 
+SPDX compliance and `OR` input concatenation also apply for the `allowOnly` option:
+
+```sh
+npx @onebeyond/license-checker scan --allowOnly MIT GPL-1.0+
+```
+
+In this case, all the packages' licenses must be either `MIT` or `GPL-1.0+`.
+
+Arguments to `failOn` and `allowOnly` are not limited to one license. Expressions with logical operators are also accepted:
+
+```sh
+npx @onebeyond/license-checker scan --allowOnly "MIT AND Apache-2.0" GPL-1.0+
+```
+
+In this example, all the packages' licenses must be either `MIT AND Apache-2.0` **or** `GPL-1.0+`.
+
 ## 🔗 Useful links
 
 - [Licensing a repository](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/licensing-a-repository)
@@ -112,7 +132,7 @@ If any of the packages' licenses satisfies that expression, the process fails (e
 
 ## ⚠️ Temporal issue
 
-An issue in `spdx-satisfies` has been found and it's pending resolution. Until then, GFDL 1x licenses are not supported and an error will be thrown if either packages or failOn arguments contain it. 
+An issue in `spdx-satisfies` has been found, and it's pending resolution. Until then, GFDL 1x licenses are not supported and an error will be thrown if either packages or failOn arguments contain it. 
 
 ## Contributors ✨
 

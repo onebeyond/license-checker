@@ -19,9 +19,14 @@ exports.builder = {
     default: process.cwd()
   },
   failOn: {
-    description: 'fail (exit with code 1) if any package license does not satisfies any license in the provided list',
+    description: 'fail (exit with code 1) if at least one package license satisfies one of the licenses in the provided list ',
     type: 'array',
-    demandOption: true
+    conflicts: 'allowOnly'
+  },
+  allowOnly: {
+    description: 'fail (exit with code 1) if at least one package license does not satisfy one of the licenses in the provided list',
+    type: 'array',
+    conflicts: 'failOn'
   },
   outputFileName: {
     description: 'name of the output file generated',

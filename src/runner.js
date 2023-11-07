@@ -25,18 +25,22 @@ const check = (license) => {
 };
 
 const scan = async (options) => {
-  const { failOn } = options;
+  const { failOn, allowOnly } = options;
 
-  if (!failOn) throw new Error('Error: You must provide a list of licenses to fail on in the "failOn" option.');
+  const allowSelected = !!allowOnly;
+  const licensesList = allowSelected ? allowOnly : failOn;
 
-  checkLicenseError(failOn); // @TODO Remove after issue has been solved
-  checkSPDXCompliance(failOn);
-  const bannedLicenses = generateSPDXExpression(failOn);
+  checkLicenseError(licensesList); // @TODO Remove after issue has been solved
+  checkSPDXCompliance(licensesList);
+  const spdxLicensesExpression = generateSPDXExpression(licensesList);
 
   const packages = await checker.parsePackages(options.start);
   const packageList = getPackageInfoList(packages);
 
-  const { forbidden: forbiddenPackages, nonCompliant: invalidPackages } = checkPackagesLicenses(bannedLicenses, packageList);
+  const {
+    forbidden: forbiddenPackages,
+    nonCompliant: invalidPackages
+  } = checkPackagesLicenses(spdxLicensesExpression, packageList, allowSelected);
   if (invalidPackages.length) {
     logger.warn(`The following package licenses are not SPDX compliant and cannot be validated:\n${invalidPackages.map(pkg => ` > ${pkg.package} | ${pkg.licenses}`).join('\n')}`);
   }
