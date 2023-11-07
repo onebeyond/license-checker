@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.1](https://github.com/onebeyond/license-checker/compare/license-checker-v2.0.0...license-checker-v2.0.1) (2023-11-07)
+
+
+### 🐛 Bug Fixes
+
+* add node annotation ([#107](https://github.com/onebeyond/license-checker/issues/107)) ([e19ae4b](https://github.com/onebeyond/license-checker/commit/e19ae4b938f27f7f186dbdd834e011e34c68c725))
+
 ## [2.0.0](https://github.com/onebeyond/license-checker/compare/license-checker-v1.0.4...license-checker-v2.0.0) (2023-09-13)
 
 
