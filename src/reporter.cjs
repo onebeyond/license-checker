@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const fs = require('fs');
 
-const logger = require('./logger');
+const logger = require('./logger.cjs');
 
 const defaultReportHeader = 'This application makes use of the following open source packages:';
 const errorReportHeader = 'The following packages use invalid licenses:';

@@ -1,11 +1,11 @@
 const isSPDXCompliant = require('spdx-expression-validate');
 
-const checker = require('./checker');
-const reporter = require('./reporter');
-const logger = require('./logger');
+const checker = require('./checker.cjs');
+const reporter = require('./reporter.cjs');
+const logger = require('./logger.cjs');
 const {
   getPackageInfoList, formatForbiddenLicenseError, generateSPDXExpression, checkSPDXCompliance, checkPackagesLicenses, isLicenseError, checkLicenseError
-} = require('./utils');
+} = require('./utils.cjs');
 
 const check = (license) => {
   if (!license) throw new Error('Error: You must provide a license to check.');

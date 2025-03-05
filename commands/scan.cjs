@@ -1,5 +1,5 @@
-const { scan } = require('../src/runner');
-const logger = require('../src/logger');
+const { scan } = require('../src/runner.cjs');
+const logger = require('../src/logger.cjs');
 
 let timestamp = new Date().toISOString();
 

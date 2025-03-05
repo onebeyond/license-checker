@@ -1,10 +1,10 @@
-jest.mock('../src/checker');
-jest.mock('../src/reporter');
+jest.mock('../src/checker.cjs');
+jest.mock('../src/reporter.cjs');
 
-const { scan } = require('../src/runner');
-const logger = require('../src/logger');
-const { parsePackages } = require('../src/checker');
-const { writeErrorReportFile, writeReportFile } = require('../src/reporter');
+const { scan } = require('../src/runner.cjs');
+const logger = require('../src/logger.cjs');
+const { parsePackages } = require('../src/checker.cjs');
+const { writeErrorReportFile, writeReportFile } = require('../src/reporter.cjs');
 
 describe('scan command', () => {
   beforeEach(() => {

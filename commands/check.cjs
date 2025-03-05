@@ -1,5 +1,5 @@
-const { check } = require('../src/runner');
-const logger = require('../src/logger');
+const { check } = require('../src/runner.cjs');
+const logger = require('../src/logger.cjs');
 
 exports.command = 'check <license>';
 
