@@ -1,4 +1,4 @@
-const chalk = require('chalk');
+import chalk from 'chalk';
 
 const log = (msg) => console.log(chalk(msg));
 
@@ -10,7 +10,7 @@ const error = (msg) => console.error(chalk.red(msg));
 
 const debug = (msg) => console.debug(chalk.gray(msg));
 
-module.exports = {
+export default {
   log,
   info,
   warn,

@@ -1,7 +1,7 @@
-const _ = require('lodash');
-const fs = require('fs');
+import _ from 'lodash';
+import fs from 'fs';
 
-const logger = require('./logger.cjs');
+import logger from './logger.js';
 
 const defaultReportHeader = 'This application makes use of the following open source packages:';
 const errorReportHeader = 'The following packages use invalid licenses:';
@@ -50,20 +50,23 @@ const writeReportFile = header =>
     const licenseTable = buildPackageTable(packageList);
 
     fs.writeFileSync(
-    `${outputFileName}.md`,
-    `${licenseReportHeader}\n${licenseTable}`,
-    error => {
-      if (error) {
-        logger.error(`Error generating report file ${outputFileName}.md`);
-        throw error;
+      `${outputFileName}.md`,
+      `${licenseReportHeader}\n${licenseTable}`,
+      error => {
+        if (error) {
+          logger.error(`Error generating report file ${outputFileName}.md`);
+          throw error;
+        }
       }
-    }
     );
 
     logger.info(`${outputFileName}.md created!`);
   };
 
-module.exports = {
-  writeReportFile: writeReportFile(defaultReportHeader),
-  writeErrorReportFile: writeReportFile(errorReportHeader)
+const reportFile = writeReportFile(defaultReportHeader);
+const errorReportFile = writeReportFile(errorReportHeader);
+
+export {
+  reportFile as writeReportFile,
+  errorReportFile as writeErrorReportFile
 };

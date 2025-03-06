@@ -1,11 +1,11 @@
-const isSPDXCompliant = require('spdx-expression-validate');
+import isSPDXCompliant from 'spdx-expression-validate';
 
-const checker = require('./checker.cjs');
-const reporter = require('./reporter.cjs');
-const logger = require('./logger.cjs');
-const {
+import { parsePackages } from './checker.js';
+import * as reporter from './reporter.js';
+import logger from './logger.js';
+import {
   getPackageInfoList, formatForbiddenLicenseError, generateSPDXExpression, checkSPDXCompliance, checkPackagesLicenses, isLicenseError, checkLicenseError
-} = require('./utils.cjs');
+} from './utils.js';
 
 const check = (license) => {
   if (!license) throw new Error('Error: You must provide a license to check.');
@@ -34,7 +34,7 @@ const scan = async (options) => {
   checkSPDXCompliance(licensesList);
   const spdxLicensesExpression = generateSPDXExpression(licensesList);
 
-  const packages = await checker.parsePackages(options.start);
+  const packages = await parsePackages(options.start);
   const packageList = getPackageInfoList(packages);
 
   const {
@@ -57,7 +57,7 @@ const scan = async (options) => {
   reporter.writeReportFile(options.outputFileName, packageList, options.customHeader);
 };
 
-module.exports = {
+export {
   check,
   scan
 };

@@ -1,5 +1,10 @@
-const isSPDXCompliant = require('spdx-expression-validate');
-const satisfiesSPDXLicense = require('spdx-satisfies');
+import isSPDXCompliant from 'spdx-expression-validate';
+import satisfiesSPDXLicense from 'spdx-satisfies';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+
+// use require as it exports a json file
 const spdxIds = require('spdx-license-ids');
 
 // @TODO Remove after issue has been solved
@@ -142,7 +147,7 @@ const checkArgs = (args) => {
   return true;
 };
 
-module.exports = {
+export {
   getPackageInfoList,
   formatForbiddenLicenseError,
   generateSPDXExpression,

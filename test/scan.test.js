@@ -1,12 +1,28 @@
-jest.mock('../src/checker.cjs');
-jest.mock('../src/reporter.cjs');
+import { beforeAll, jest } from '@jest/globals';
+import logger from '../src/logger.js';
 
-const { scan } = require('../src/runner.cjs');
-const logger = require('../src/logger.cjs');
-const { parsePackages } = require('../src/checker.cjs');
-const { writeErrorReportFile, writeReportFile } = require('../src/reporter.cjs');
+jest.unstable_mockModule('../src/checker.js', () => ({
+  parsePackages: jest.fn()
+}));
+
+jest.unstable_mockModule('../src/reporter.js', () => ({
+  writeErrorReportFile: jest.fn(),
+  writeReportFile: jest.fn()
+}));
+
+let parsePackages;
+let writeErrorReportFile;
+let writeReportFile;
+let scan;
 
 describe('scan command', () => {
+
+  beforeAll(async () => {
+    ({ writeErrorReportFile, writeReportFile } = await import('../src/reporter.js'));
+    ({ parsePackages } = await import('../src/checker.js'));
+    ({ scan } = await import('../src/runner.js'));
+  });
+
   beforeEach(() => {
     jest.resetAllMocks();
   });
