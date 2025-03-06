@@ -16,8 +16,8 @@
   ],
   "scripts": {
     "prepare": "./node_modules/.bin/is-ci || husky install",
-    "lint": "eslint *.cjs .",
-    "lint:fix": "eslint --fix --ext .cjs .",
+    "lint": "eslint **/*.js .",
+    "lint:fix": "eslint **/*.js .",
     "test": "NODE_OPTIONS='--experimental-vm-modules' jest",
     "coverage": "NODE_OPTIONS='--experimental-vm-modules' jest --coverage",
     "ncu": "npx npm-check-updates"
