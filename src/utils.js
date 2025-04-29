@@ -41,7 +41,7 @@ const formatForbiddenLicenseError = licenses => {
       [licenses]: !stats[licenses] ? 1 : stats[licenses] + 1
     }), {});
 
-  const header = `Found ${licenses.length} packages with licenses defined by the --failOn flag:`;
+  const header = `Found ${licenses.length} packages with licenses defined by the provided option:`;
   const lines = Object
     .entries(forbiddenLicenseStats)
     .map(([license, value]) => ` > ${value} packages with license ${license}`)
@@ -66,7 +66,7 @@ const checkSPDXCompliance = (licenses = []) => {
   const invalidLicenses = licenses.filter(arg => !isSPDXCompliant(arg));
   if (invalidLicenses.length) {
     throw new Error(
-      `The following licenses are not SPDX compliant. Please, use the --checkLicense option to validate your input:\n${invalidLicenses.join(' | ')}`
+      `The following licenses are not SPDX compliant. Please, use the "check" command to validate your input:\n${invalidLicenses.join(' | ')}`
     );
   }
 };
@@ -80,7 +80,7 @@ const checkLicenseError = (licenses = []) => {
   const errorLicenses = licenses.some(isLicenseError);
   if (errorLicenses) {
     throw new Error(
-      'Your failOn list contains a GFDL-1.x licenses and they are temporary unallowed. There\'s an issue pending to solve.'
+      'Your licenses list contains a GFDL-1.x licenses and they are temporary unallowed. There\'s an issue pending to solve.'
     );
   }
 };
@@ -94,28 +94,52 @@ const checkLicenseError = (licenses = []) => {
 const isLicenseError = (license = '') => licensesExceptions.includes(license);
 
 /**
+ * Filter out licenses from the SPDX complete list depending on the value of the shouldSatisfy flag.
+ * @param {string} expression - A valid SPDX expression
+ * @param {boolean} shouldSatisfy - If true, the result will yield all the licenses that satisfies the incoming expression. If false,
+ * the result will yield any other license that do not match the expression
+ * @return {string[]} - List of resulting licenses
+ */
+const getValidLicenses = (expression, shouldSatisfy) => spdxIds.filter(id => {
+  if (isLicenseError(id)) return false;// @TODO Refactor after issue has been solved
+  const isSatisfied = satisfiesSPDXLicense(id, expression);
+  return shouldSatisfy ? isSatisfied : !isSatisfied;
+});
+
+/**
  * Subtracts the expression from the full list of SPDX ids and check the result (the allowed licenses) against the list of packages.
  * If the license of the package itself is not SPDX compliant, the package will be included on the "nonCompliant" list.
  * If a package license does not satisfy the allowed SPDX id list, the package will be included on the "forbidden" list.
  * @param {string} expression - A SPDX expression
  * @param {object[]} packages - A list of packages to be checked against the SPDX expression
+ * @param {boolean} allow - Determines the license check. If true, forbidden will contain all the packages that
+ * do not comply with the expression. If false, forbidden will contain all the packages that comply with the expression
  * @return {{forbidden: object[], nonCompliant: object[]}} - A couple of lists including the packages that satisfy the SPDX expression
  * and the packages with a non SPDX compliant license
  */
-const checkPackagesLicenses = (expression, packages) => {
-  const validSpdxIds = expression && spdxIds.filter(id => !isLicenseError(id) && !satisfiesSPDXLicense(id, expression)); // @TODO Refactor after issue has been solved
-  const allowedLicensesExp = expression && generateSPDXExpression(validSpdxIds);
+const checkPackagesLicenses = (expression, packages, allow = false) => {
+  const validSpdxIds = getValidLicenses(expression, allow);
+
+  const allowedLicensesExp = generateSPDXExpression(validSpdxIds);
 
   return packages.reduce((total, pkg) => {
     const { licenses } = pkg;
 
     if (!isSPDXCompliant(licenses)) return { ...total, nonCompliant: [...total.nonCompliant, pkg] };
 
-    const isSatisfiedLicense = expression && !satisfiesSPDXLicense(licenses, allowedLicensesExp);
-    if (isSatisfiedLicense) return { ...total, forbidden: [...total.forbidden, pkg] };
+    if (!satisfiesSPDXLicense(licenses, allowedLicensesExp)) return { ...total, forbidden: [...total.forbidden, pkg] };
 
     return total;
   }, { forbidden: [], nonCompliant: [] });
+};
+
+const checkArgs = (args) => {
+  if (args._[0] === 'scan') {
+    const { failOn, allowOnly } = args;
+    if (!failOn && !allowOnly) throw new Error('You need to provide the "failOn" or "allowOnly" option.');
+    if ((failOn && !failOn.length) || (allowOnly && !allowOnly.length)) throw new Error('You need to provide at least one license.');
+  }
+  return true;
 };
 
 module.exports = {
@@ -125,5 +149,6 @@ module.exports = {
   checkSPDXCompliance,
   checkPackagesLicenses,
   isLicenseError,
-  checkLicenseError
+  checkLicenseError,
+  checkArgs
 };
