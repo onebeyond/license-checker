@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### 🆕 Features
 
-* add `allowonly` option ([#103](https://github.com/onebeyond/license-checker/issues/103)) ([49f3284](https://github.com/onebeyond/license-checker/commit/49f3284df440f3c58bb57664c87a9bf5b8fa01b2))
+* add `--allowOnly` option ([#103](https://github.com/onebeyond/license-checker/issues/103)) ([49f3284](https://github.com/onebeyond/license-checker/commit/49f3284df440f3c58bb57664c87a9bf5b8fa01b2))
 
 ## [2.0.1](https://github.com/onebeyond/license-checker/compare/license-checker-v2.0.0...license-checker-v2.0.1) (2023-11-07)
 
