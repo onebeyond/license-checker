@@ -1,5 +1,5 @@
-const { scan } = require('../src/runner');
-const logger = require('../src/logger');
+import { scan } from '../src/runner.js';
+import logger from '../src/logger.js';
 
 let timestamp = new Date().toISOString();
 
@@ -8,11 +8,11 @@ if (process.platform === 'win32') {
   timestamp = timestamp.replace(/:/gi, '.');
 }
 
-exports.command = ['scan', '$0'];
+export const command = ['scan', '$0'];
 
-exports.describe = 'scan licenses of a project looking for forbidden licenses';
+export const describe = 'scan licenses of a project looking for forbidden licenses';
 
-exports.builder = {
+export const builder = {
   start: {
     description: 'path of the initial json to look for',
     type: 'string',
@@ -54,7 +54,7 @@ exports.builder = {
   }
 };
 
-exports.handler = async function (argv) {
+export const handler = async function (argv) {
   const { _, $0, ...options } = argv;
 
   try {

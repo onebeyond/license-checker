@@ -1,14 +1,15 @@
 #!/usr/bin/env node
 
-const yargs = require('yargs')(process.argv.slice(2));
-const { checkArgs } = require('./src/utils');
+import yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
+import { commands } from './commands/index.js';
 
 // https://github.com/yargs/yargs/blob/main/docs/advanced.md#commanddirdirectory-opts
-module.exports = yargs
+export default yargs(hideBin(process.argv))
   .parserConfiguration({ 'camel-case-expansion': false })
-  .commandDir('commands')
+  .command(commands)
   .demandCommand()
   .check(checkArgs)
   .help()
   .alias('help', 'h')
-  .argv;
+  .parse();

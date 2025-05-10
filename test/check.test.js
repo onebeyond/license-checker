@@ -1,4 +1,4 @@
-const { check } = require('../src/runner');
+import { check } from '../src/runner.js';
 
 describe('check command', () => {
   it('should throw an error if the license is not SPDX compliant', async () => {

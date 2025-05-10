@@ -3,6 +3,7 @@
   "version": "2.1.0",
   "description": "Audit your NPM dependencies and reject any forbidden license.",
   "main": "cli.js",
+  "type": "module",
   "bin": {
     "license-checker": "./cli.js"
   },
@@ -15,10 +16,10 @@
   ],
   "scripts": {
     "prepare": "./node_modules/.bin/is-ci || husky install",
-    "lint": "eslint *.js .",
-    "lint:fix": "eslint --fix --ext .js .",
-    "test": "jest",
-    "coverage": "jest --coverage",
+    "lint": "eslint **/*.js .",
+    "lint:fix": "eslint **/*.js .",
+    "test": "NODE_OPTIONS='--experimental-vm-modules' jest",
+    "coverage": "NODE_OPTIONS='--experimental-vm-modules' jest --coverage",
     "ncu": "npx npm-check-updates"
   },
   "license": "MIT",

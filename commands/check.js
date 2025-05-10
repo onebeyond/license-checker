@@ -1,11 +1,11 @@
-const { check } = require('../src/runner');
-const logger = require('../src/logger');
+import { check } from '../src/runner.js';
+import logger from '../src/logger.js';
 
-exports.command = 'check <license>';
+export const command = 'check <license>';
 
-exports.describe = 'check if a license is SPDX compliant';
+export const describe = 'check if a license is SPDX compliant';
 
-exports.handler = function (argv) {
+export const handler = function (argv) {
   const { license } = argv;
 
   try {

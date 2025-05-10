@@ -1,4 +1,4 @@
-const checker = require('license-checker');
+import checker from 'license-checker';
 
 const parsePackages = path => new Promise((resolve, reject) => {
   checker.init({
@@ -9,6 +9,6 @@ const parsePackages = path => new Promise((resolve, reject) => {
   });
 });
 
-module.exports = {
+export {
   parsePackages
 };
