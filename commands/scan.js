@@ -51,6 +51,11 @@ exports.builder = {
   customHeader: {
     description: 'name of a text file containing the custom header to add at the start of the generated report',
     type: 'string'
+  },
+  ignoreRootPackageLicense: {
+    description: 'flag to ignore the root package license during validation',
+    type: 'boolean',
+    default: false
   }
 };
 

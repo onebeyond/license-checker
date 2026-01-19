@@ -81,6 +81,7 @@ node_modules/.bin/license-checker scan --failOn <license>
 | --disableErrorReport  | Flag to disable the error report file generation                                                                      | false | boolean  | `false` |
 | --disableReport       | Flag to disable the report file generation, whether there is an error or not                                          | false | boolean | `false` |
 | --customHeader        | Name of a text file containing the custom header to add at the start of the generated report                          | false | string | This application makes use of the following open source packages: |
+| --ignoreRootPackageLicense | Flag to ignore the root package license during validation (useful for projects with UNLICENSED or non-SPDX compliant licenses) | false | boolean | `false` |
 
 
 > ❗The options `--failOn` and `--allowOnly` are mutually exclusive. You must use one of them.
@@ -124,6 +125,16 @@ npx @onebeyond/license-checker scan --allowOnly "MIT AND Apache-2.0" GPL-1.0+
 ```
 
 In this example, all the packages' licenses must be either `MIT AND Apache-2.0` **or** `GPL-1.0+`.
+
+#### Ignoring root package license
+
+If your project uses `UNLICENSED` or a non-SPDX compliant license, you can use the `--ignoreRootPackageLicense` flag to exclude the root package from validation:
+
+```sh
+npx @onebeyond/license-checker scan --failOn AGPL-1.0-or-later LGPL-2.0-or-later --ignoreRootPackageLicense
+```
+
+This is useful when you want to validate your dependencies' licenses without failing due to your own project's license.
 
 ## 🔗 Useful links
 

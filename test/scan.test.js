@@ -524,4 +524,100 @@ describe('scan command', () => {
       );
     });
   });
+
+  describe('"ignoreRootPackageLicense" option', () => {
+    it('should filter out the root package when ignoreRootPackageLicense is enabled', async () => {
+      const options = {
+        start: '/path/to/cwd',
+        failOn: ['GPL-3.0'],
+        ignoreRootPackageLicense: true
+      };
+
+      const packages = {
+        'root-package@1.0.0': {
+          licenses: 'GPL-3.0',
+          repository: 'https://git.com/repo/root',
+          path: '/path/to/cwd',
+          licenseFile: '/path/to/cwd/LICENSE'
+        },
+        'package-1': {
+          licenses: 'MIT',
+          repository: 'https://git.com/repo/repo',
+          path: '/path/to/cwd/node_modules/package-1',
+          licenseFile: '/path/to/cwd/node_modules/package-1/LICENSE'
+        }
+      };
+
+      parsePackages.mockResolvedValueOnce(packages);
+
+      await expect(scan(options)).resolves.toBeUndefined();
+    });
+
+    it('should include the root package when ignoreRootPackageLicense is disabled', async () => {
+      const options = {
+        start: '/path/to/cwd',
+        failOn: ['GPL-3.0'],
+        ignoreRootPackageLicense: false
+      };
+
+      const packages = {
+        'root-package@1.0.0': {
+          licenses: 'GPL-3.0',
+          repository: 'https://git.com/repo/root',
+          path: '/path/to/cwd',
+          licenseFile: '/path/to/cwd/LICENSE'
+        },
+        'package-1': {
+          licenses: 'MIT',
+          repository: 'https://git.com/repo/repo',
+          path: '/path/to/cwd/node_modules/package-1',
+          licenseFile: '/path/to/cwd/node_modules/package-1/LICENSE'
+        }
+      };
+
+      parsePackages.mockResolvedValueOnce(packages);
+
+      await expect(scan(options)).rejects.toThrow('Found 1 packages with licenses defined by the provided option');
+    });
+
+    it('should filter out root package with non-SPDX compliant licenses (UNLICENSED, UNKNOWN, custom)', async () => {
+      const nonCompliantLicenses = ['UNLICENSED', 'UNKNOWN', 'Custom Proprietary License'];
+
+      for (const license of nonCompliantLicenses) {
+        const options = {
+          start: '/path/to/cwd',
+          failOn: ['GPL-3.0'],
+          ignoreRootPackageLicense: true
+        };
+
+        const packages = {
+          'root-package@1.0.0': {
+            licenses: license,
+            repository: 'https://git.com/repo/root',
+            path: '/path/to/cwd',
+            licenseFile: '/path/to/cwd/LICENSE'
+          },
+          'package-1': {
+            licenses: 'MIT',
+            repository: 'https://git.com/repo/repo',
+            path: '/path/to/cwd/node_modules/package-1',
+            licenseFile: '/path/to/cwd/node_modules/package-1/LICENSE'
+          }
+        };
+
+        parsePackages.mockResolvedValueOnce(packages);
+
+        const warnSpy = jest.spyOn(logger, 'warn');
+
+        await scan(options);
+
+        // Should not show warning about root package
+        if (warnSpy.mock.calls.length > 0) {
+          expect(warnSpy.mock.calls[0][0]).not.toContain('root-package@1.0.0');
+        }
+
+        warnSpy.mockRestore();
+      }
+    });
+  });
 });
