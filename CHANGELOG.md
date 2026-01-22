@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/onebeyond/license-checker/compare/license-checker-v2.1.0...license-checker-v2.2.0) (2026-01-22)
+
+
+### 🆕 Features
+
+* add `--ignoreRootPackageLicense` ([#112](https://github.com/onebeyond/license-checker/issues/112)) ([bb5de1c](https://github.com/onebeyond/license-checker/commit/bb5de1c7ebc7892a7fe2f808b4fc7c1a9ee7230b))
+
 ## [2.1.0](https://github.com/onebeyond/license-checker/compare/license-checker-v2.0.1...license-checker-v2.1.0) (2025-04-29)
 
 
