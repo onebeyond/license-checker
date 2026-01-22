@@ -35,7 +35,7 @@ const scan = async (options) => {
   const spdxLicensesExpression = generateSPDXExpression(licensesList);
 
   const packages = await checker.parsePackages(options.start);
-  const packageList = getPackageInfoList(packages);
+  const packageList = getPackageInfoList(packages, options);
 
   const {
     forbidden: forbiddenPackages,

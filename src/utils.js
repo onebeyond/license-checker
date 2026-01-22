@@ -14,19 +14,34 @@ const licensesExceptions = ['GFDL-1.1-no-invariants-or-later', 'GFDL-1.1-invaria
  *
  * @param {object} packages - Map of packages installed in the project where
  *  the script is run
+ * @param {object} options - Configuration options
+ * @param {boolean} options.ignoreRootPackageLicense - If true, filters out the root package from validation
+ * @param {string} options.start - Path to the project root
  *
  * @returns List of objects with package metadata
  */
-const getPackageInfoList = packages => Object.entries(packages)
-  .map(([key, value]) => {
-    const { path, licenseFile, ...rest } = value;
-    const validInfo = {
-      package: key,
-      ...rest
-    };
+const getPackageInfoList = (packages, options = {}) => {
+  const startPath = options.start || process.cwd();
 
-    return validInfo;
-  });
+  return Object.entries(packages)
+    .filter(([key, value]) => {
+      // Filter out the root package if ignoreRootPackageLicense is enabled
+      // The root package is identified by its path matching the start directory
+      if (options.ignoreRootPackageLicense && value.path === startPath) {
+        return false;
+      }
+      return true;
+    })
+    .map(([key, value]) => {
+      const { path, licenseFile, ...rest } = value;
+      const validInfo = {
+        package: key,
+        ...rest
+      };
+
+      return validInfo;
+    });
+};
 
 /**
  * Format the forbidden licenses identified in a multiline string
